@@ -5,7 +5,8 @@ import '../billing/billing.css'
 import billlogo from '../../billlogo.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faEye, faPlusSquare } from '@fortawesome/free-solid-svg-icons'
-import convertToHTML from '../../apicall';
+import { usePDF } from 'react-to-pdf';
+
 
 function Billing() {
   const [titleaddress, setTitleAddress] = useState('N0,25 Sanmathi Avenue, Paruthipattu, Avadi, Chennai-600 071');
@@ -36,6 +37,7 @@ function Billing() {
   const [qtyTotal, setQtyTotal] = useState(0);
   const [totalamount, setTotalAmount] = useState(0);
 
+  const { toPDF, targetRef } = usePDF({filename: 'output.pdf'});
 
   const [tableData, setTableData] = useState([
     {
@@ -628,17 +630,17 @@ function Billing() {
           <Modal.Title>Preview</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div id="pdf-content">
+          <div ref={targetRef}>
             <div className="m-5" >
             <center><h4 className='m-2' style={{ fontWeight: "bolder" }}>{title}</h4></center>
             <Container className='p-0' style={{ border: '2px solid #000', padding: '20px' }}>
               <Row className='m-0' style={{ borderBottom: '2px solid #000' }}>
-                <Col>
+                <Col style={{padding:0}}>
 
                   <img
                     src={logoFile ? URL.createObjectURL(logoFile) : billlogo}
                     alt="Profile Preview"
-                    style={{ width: '150px', height: '100px' }}
+                    style={{ width: '150px', height: '120px' }}
                   />
 
                 </Col>
@@ -878,7 +880,7 @@ function Billing() {
 
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={convertToHTML}>
+          <Button variant="primary" onClick={() => toPDF()}>
             Generate PDF
           </Button>
           <Button variant="secondary" onClick={() => setShowPreview(false)}>
