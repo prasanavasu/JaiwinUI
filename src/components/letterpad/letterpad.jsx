@@ -4,7 +4,8 @@ import { Button, Modal } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash,faEye,faPlusSquare } from '@fortawesome/free-solid-svg-icons'
 import JaiwinNavbar from '../navbar';
-import convertToHTML from '../../apicall';
+import { usePDF } from 'react-to-pdf';
+
 
 function LetterPad() {
   const [mobile, setMobile] = useState('9787899368');
@@ -38,6 +39,8 @@ function LetterPad() {
   const [files, setFiles] = useState([]);
   const [count, setCount] = useState(0);
   const [showPreview, setShowPreview] = useState(false);
+
+  const { toPDF, targetRef } = usePDF({filename: 'output.pdf'});
 
   const handleTableDataChange = (index, field, value) => {
     const updatedTableData = [...tableData];
@@ -349,7 +352,7 @@ function LetterPad() {
           <Modal.Title>Preview</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className="container" id="pdf-content" >
+          <div className="container" ref={targetRef}>
             <p className="text-right m-0 text-success">
               <strong> CELL: </strong> <span className="" id="mobile_val">{mobile}</span>
             </p>
@@ -484,7 +487,7 @@ function LetterPad() {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={convertToHTML}>
+          <Button variant="primary" onClick={() => toPDF()}>
             Generate PDF
           </Button>
           <Button variant="secondary" onClick={() => setShowPreview(false)}>
