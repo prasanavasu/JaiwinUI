@@ -2,7 +2,7 @@ import { React, useState } from 'react';
 import JaiwinNavbar from '../navbar';
 import { Container, Row, Col, Button, Table, Modal } from 'react-bootstrap';
 import '../billing/billing.css'
-import billlogo from '../../billlogo.jpg'
+import billlogo from '../../../billlogo.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faEye, faPlusSquare } from '@fortawesome/free-solid-svg-icons'
 import { usePDF } from 'react-to-pdf';
