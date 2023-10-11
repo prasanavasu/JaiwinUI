@@ -1,7 +1,7 @@
 import * as React from 'react';
 import JaiNavbar from './navbar';
 import { Box, Typography, Card, CardActions, CardContent, CardMedia, Button, Grid } from '@mui/material';
-
+import './home.css'
 
 function JaiwinHome() {
 
@@ -13,7 +13,7 @@ function JaiwinHome() {
         sx={{
           p: 2,
           border: '1px dashed grey',
-          height: "500px",
+          height: "700px",
           backgroundImage: 'linear-gradient(0deg, rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url("https://assets.nicepagecdn.com/11a8ddce/3667110/images/pexels-sevenstorm-juhaszimrus-425160.jpg")'
         }}>
         <Typography>testing</Typography>
@@ -32,6 +32,7 @@ function JaiwinHome() {
         >
           Popular Products
         </Typography>
+        <div className='scroll-container'>
         <Grid container spacing={5} px={5} >
           {cards.map((card) => (
             <Grid item key={card} xs={12} sm={6} md={3}>
@@ -62,6 +63,7 @@ function JaiwinHome() {
             </Grid>
           ))}
         </Grid>
+        </div>
       </Box>
     </>
   );

@@ -1,0 +1,9 @@
+/* styles.css */
+.scroll-container {
+    display: flex;
+    overflow-x: auto;
+    padding-bottom: 16px;
+    height: 400px;
+    width: 100%; /* Set a specific width to the container */
+  }
+  

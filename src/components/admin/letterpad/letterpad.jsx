@@ -89,6 +89,11 @@ function LetterPad() {
     }
   };
 
+  const formatDate = (inputDate) => {
+    const [year, month, day] = inputDate.split('-');
+    return `${day}-${month}-${year}`;
+  };
+
   const previewContent = () => {
     setShowPreview(true);
   };
@@ -368,7 +373,7 @@ function LetterPad() {
             <hr className="m-0 text-success border-3" />
             <hr className="m-1 txt-success border-3" /><br />
             <p className="text-right m-0 text-success">
-              <strong> Date: </strong> <span className="">{date}</span>
+              <strong> Date: </strong> <span className="">{formatDate(date)}</span>
             </p><br />
             <div className="container">
               <div className="row row-cols-2 mb-4">
@@ -404,53 +409,24 @@ function LetterPad() {
                   {tableData.map((row, index) => (
                     <tr key={index}>
                       <td>
-                        <input
-                          type="text"
-                          className="data1"
-                          style={{ textAlign: 'center' }}
-                          value={row.sno}
-                          readOnly
-                        />
+                      <p>{row.sno}</p>
+                      
                       </td>
                       <td>
-                        <input
-                          type="text"
-                          className="data2"
-                          style={{ textAlign: 'center' }}
-                          value={row.itemDescription}
-                          onChange={(e) =>
-                            handleTableDataChange(index, 'itemDescription', e.target.value)
-                          }
-                        />
+                      <p>{row.itemDescription}</p>
+                        
                       </td>
                       <td>
-                        <input
-                          type="text"
-                          className="data3"
-                          style={{ textAlign: 'center' }}
-                          value={row.quantity}
-                          onChange={(e) =>
-                            handleTableDataChange(index, 'quantity', e.target.value)
-                          }
-                        />
+                      <p>{row.quantity}</p>
+                  
                       </td>
                       <td>
-                        <input
-                          type="text"
-                          className="data4"
-                          style={{ textAlign: 'center' }}
-                          value={row.taxes}
-                          readOnly
-                        />
+                      <p>{row.taxes}</p>
+                        
                       </td>
                       <td>
-                        <input
-                          type="text"
-                          className="data5"
-                          style={{ textAlign: 'center' }}
-                          value={row.amount}
-                          readOnly
-                        />
+                        <p>{row.amount}</p>
+                        
                       </td>
                     </tr>
                   ))}
