@@ -38,6 +38,11 @@ function Billing() {
 
   const [base64Image, setBase64Image] = useState('');
 
+  const formatDate = (inputDate) => {
+    const [year, month, day] = inputDate.split('-');
+    return `${day}-${month}-${year}`;
+  };
+
   useEffect(() => {
     // Convert the imported image to Base64
     fetch(billlogo)
@@ -739,7 +744,7 @@ const readFileAsBase64 = (file) => {
                     </p>
                     <p className='m-0' style={{ fontWeight: "bolder" }} >
                       Date:{' '}
-                      <span style={{ fontWeight: "normal" }}> {date}</span>
+                      <span style={{ fontWeight: "normal" }}> {formatDate(date)}</span>
 
                     </p>
                   </Col>
