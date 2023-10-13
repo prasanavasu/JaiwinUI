@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import '../letterpad/letterpad.css'
 import { Button, Modal } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash,faEye,faPlusSquare } from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faEye, faPlusSquare } from '@fortawesome/free-solid-svg-icons'
 import JaiwinNavbar from '../navbar';
-import { usePDF } from 'react-to-pdf';
+import Html_Pdf from '../../api';
 
 
 function LetterPad() {
@@ -40,7 +40,6 @@ function LetterPad() {
   const [count, setCount] = useState(0);
   const [showPreview, setShowPreview] = useState(false);
 
-  const { toPDF, targetRef } = usePDF({filename: 'output.pdf'});
 
   const handleTableDataChange = (index, field, value) => {
     const updatedTableData = [...tableData];
@@ -50,20 +49,29 @@ function LetterPad() {
 
   const handleFileSelect = (e) => {
     const selectedFiles = Array.from(e.target.files);
-
-    const newFiles = selectedFiles.map((file) => {
-      return {
-        id: count + 1,
-        name: file.name,
-        dataURL: URL.createObjectURL(file),
+    selectedFiles.map((file) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        // Inside the onload callback, you can access reader.result
+        const base64Data = reader.result;
+  
+        // Create a new file object with the dataURL
+        const newFile = {
+          id: count + 1,
+          name: file.name,
+          dataURL: base64Data,
+        };
+  
+        // Update your state with the new file
+        setCount(count + 1);
+        setFiles([...files, newFile]);
       };
+  
+      return null; // You don't need to return anything in the map function
     });
-
-
-
-    setCount(count + newFiles.length);
-    setFiles([...files, ...newFiles]);
   };
+  
 
   const removeFile = (id) => {
     const updatedFiles = files.filter((file) => file.id !== id);
@@ -97,11 +105,23 @@ function LetterPad() {
   const previewContent = () => {
     setShowPreview(true);
   };
+
+  const targetRef = useRef(null);
+  const sendHtmlToBackend = () => {
+    // Extract the HTML content from the targetRef (the container with the ref)
+    const html = targetRef.current.innerHTML;
+
+    // Extract the associated styles (CSS) from the head of the document
+    const styles = Array.from(document.querySelectorAll('style')).map(style => style.innerHTML).join('');
+    Html_Pdf(html,styles)
+    
+  };
+
   return (
     <>
-    <JaiwinNavbar/>
-      <Button onClick={previewContent} className="m-3" size="sm" style={{ position: 'absolute',right: 20}}>
-      <FontAwesomeIcon icon={faEye} />
+      <JaiwinNavbar />
+      <Button onClick={previewContent} className="m-3" size="sm" style={{ position: 'absolute', right: 20 }}>
+        <FontAwesomeIcon icon={faEye} />
       </Button><br></br>
       <div className="container ridge-border my-5" >
         <p className="text-right m-0 text-success">
@@ -347,18 +367,18 @@ function LetterPad() {
             </div>
           </div>
           <br />
-         
+
           <br />
         </div>
       </div>
-     
+
       <Modal show={showPreview} onHide={() => setShowPreview(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Preview</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="container" ref={targetRef}>
-            <p className="text-right m-0 text-success">
+            <p className="text-right m-0 text-success" style={{color:"#008000"}}>
               <strong> CELL: </strong> <span className="" id="mobile_val">{mobile}</span>
             </p>
             <p className="text-center m-0">
@@ -372,7 +392,7 @@ function LetterPad() {
             </p>
             <hr className="m-0 text-success border-3" />
             <hr className="m-1 txt-success border-3" /><br />
-            <p className="text-right m-0 text-success">
+            <p className="text-right m-0 text-success" style={{color:"#008000"}}>
               <strong> Date: </strong> <span className="">{formatDate(date)}</span>
             </p><br />
             <div className="container">
@@ -395,43 +415,43 @@ function LetterPad() {
               </div>
               <div className="row row-cols-1">
                 <div className="col">
-                <table className="table table-bordered">
-                <thead>
-                  <tr className="text-center">
-                    <th scope="col">S.NO</th>
-                    <th scope="col">Item Description</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Taxes</th>
-                    <th scope="col">Amount</th>
-                  </tr>
-                </thead>
-                <tbody className="text-center" id="myTable">
-                  {tableData.map((row, index) => (
-                    <tr key={index}>
-                      <td>
-                      <p>{row.sno}</p>
-                      
-                      </td>
-                      <td>
-                      <p>{row.itemDescription}</p>
-                        
-                      </td>
-                      <td>
-                      <p>{row.quantity}</p>
-                  
-                      </td>
-                      <td>
-                      <p>{row.taxes}</p>
-                        
-                      </td>
-                      <td>
-                        <p>{row.amount}</p>
-                        
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+                  <table className="table table-bordered">
+                    <thead>
+                      <tr className="text-center">
+                        <th scope="col">S.NO</th>
+                        <th scope="col">Item Description</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Taxes</th>
+                        <th scope="col">Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody className="text-center" id="myTable">
+                      {tableData.map((row, index) => (
+                        <tr key={index}>
+                          <td>
+                            <p>{row.sno}</p>
+
+                          </td>
+                          <td>
+                            <p>{row.itemDescription}</p>
+
+                          </td>
+                          <td>
+                            <p>{row.quantity}</p>
+
+                          </td>
+                          <td>
+                            <p>{row.taxes}</p>
+
+                          </td>
+                          <td>
+                            <p>{row.amount}</p>
+
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </div>
               <div className="row row-cols-1">
@@ -451,19 +471,19 @@ function LetterPad() {
                   <p className="text-right m-0"><span className="sign font-weight-bold"><strong> For Jaiwin Enterprises</strong></span></p>
                   <br />
                   <div id="selectedFiles" style={{ display: 'grid' }}>
-                {files.map((file) => (
-                  <div key={file.id} style={{ position: 'relative', marginRight: '10px', marginBottom: '10px' }}>
-                    <img src={file.dataURL} alt={file.name} />
+                    {files.map((file) => (
+                      <div key={file.id} style={{ position: 'relative', marginRight: '10px', marginBottom: '10px' }}>
+                        <img src={file.dataURL} alt={file.name} />
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
                 </div>
               </div>
             </div>
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={() => toPDF()}>
+          <Button variant="primary" onClick={sendHtmlToBackend}>
             Generate PDF
           </Button>
           <Button variant="secondary" onClick={() => setShowPreview(false)}>

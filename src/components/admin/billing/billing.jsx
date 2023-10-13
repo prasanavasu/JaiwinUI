@@ -1,12 +1,11 @@
-import { React, useState } from 'react';
+import { React, useState, useRef,useEffect } from 'react';
 import JaiwinNavbar from '../navbar';
 import { Container, Row, Col, Button, Table, Modal } from 'react-bootstrap';
 import '../billing/billing.css'
 import billlogo from '../../../billlogo.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faEye, faPlusSquare } from '@fortawesome/free-solid-svg-icons'
-import { usePDF } from 'react-to-pdf';
-
+import Html_Pdf from '../../api';
 
 function Billing() {
   const [titleaddress, setTitleAddress] = useState('N0,25 Sanmathi Avenue, Paruthipattu, Avadi, Chennai-600 071');
@@ -37,7 +36,20 @@ function Billing() {
   const [totalamount, setTotalAmount] = useState(0);
   const [qtytotal, setQtyTotal] = useState(0);
 
-  const { toPDF, targetRef } = usePDF({filename: 'output.pdf'});
+  const [base64Image, setBase64Image] = useState('');
+
+  useEffect(() => {
+    // Convert the imported image to Base64
+    fetch(billlogo)
+      .then((response) => response.blob())
+      .then((blob) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+        reader.onload = () => {
+          setBase64Image(reader.result);
+        };
+      });
+  }, []);
 
   const [tableData, setTableData] = useState([
     {
@@ -62,21 +74,43 @@ function Billing() {
   ]);
 
 
-  const handleFileChange = (e, id) => {
-    const file = e.target.files[0];
-    if (id === "scanner") {
-      setSelectedFile(file);
-    }
-    else if (id === "logo") {
-      setLogoFile(file);
-    } else {
-      setStampFile(file);
-    }
+  const handleFileChange = async (e,id) => {
+  const file = e.target.files[0];
+  if (!file) {
+    // Handle the case where no file is selected
+    return;
+  }
+
+  const base64Data = await readFileAsBase64(file);
+  console.log("id",id)
+  if (id === "scanner") {
+    setSelectedFile(file, base64Data);
+  } else if (id === "logo") {
+    setLogoFile(file, base64Data);
+  } else {
+    setStampFile(file, base64Data);
+  }
+};
+
+// Function to read a file as Base64 data
+const readFileAsBase64 = (file) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      resolve(reader.result);
+    };
+
+    reader.onerror = (error) => {
+      reject(error);
+    };
+
+    reader.readAsDataURL(file);
+  });
+};
 
 
-  };
-
-  const handleTableDataChange = (index, field, value,id) => {
+  const handleTableDataChange = (index, field, value, id) => {
 
     if (id === 'table') {
       if (tableData.length > 0) {
@@ -90,7 +124,7 @@ function Billing() {
         updatedTaxData[index][field] = value;
         setTaxData(updatedTaxData);
 
-        
+
       }
     }
   };
@@ -142,6 +176,17 @@ function Billing() {
     setShowPreview(true);
   };
 
+  const targetRef = useRef(null);
+  const sendHtmlToBackend = () => {
+    // Extract the HTML content from the targetRef (the container with the ref)
+    const html = targetRef.current.innerHTML;
+
+    // Extract the associated styles (CSS) from the head of the document
+    const styles = Array.from(document.querySelectorAll('style')).map(style => style.innerHTML).join('');
+    Html_Pdf(html, styles)
+
+  };
+
   return (
     <>
       <JaiwinNavbar />
@@ -161,11 +206,11 @@ function Billing() {
             <Col>
 
               <img
-                src={logoFile ? URL.createObjectURL(logoFile) : billlogo}
+                src={logoFile ? URL.createObjectURL(logoFile) : base64Image}
                 alt="Profile Preview"
                 style={{ width: '150px', height: '100px' }}
               />
-              <input type="file" accept="image/*" onChange={(e) => handleFileChange(e, "logo")} />
+              <input type="file" accept="image/*"  onChange={(e) => handleFileChange(e, "logo")} />
 
             </Col>
             <Col className='text-right'>
@@ -329,7 +374,7 @@ function Billing() {
                         style={{ textAlign: 'center', width: '100%' }}
                         value={row.itemName}
                         onChange={(e) =>
-                          handleTableDataChange(index, 'itemName', e.target.value,'table')
+                          handleTableDataChange(index, 'itemName', e.target.value, 'table')
                         }
                       />
                     </td>
@@ -340,7 +385,7 @@ function Billing() {
                         style={{ textAlign: 'center', width: '100%' }}
                         value={row.itemCode}
                         onChange={(e) =>
-                          handleTableDataChange(index, 'itemCode', e.target.value,'table')
+                          handleTableDataChange(index, 'itemCode', e.target.value, 'table')
                         }
                       />
                     </td>
@@ -353,7 +398,7 @@ function Billing() {
                         value={row.quantity}
                         min={0}
                         onChange={(e) =>
-                          handleTableDataChange(index, 'quantity', e.target.value,'table')
+                          handleTableDataChange(index, 'quantity', e.target.value, 'table')
                         }
                       />
                     </td>
@@ -364,7 +409,7 @@ function Billing() {
                         style={{ textAlign: 'center', width: '100%' }}
                         value={row.unit}
                         onChange={(e) =>
-                          handleTableDataChange(index, 'unit', e.target.value,'table')
+                          handleTableDataChange(index, 'unit', e.target.value, 'table')
                         }
                       />
                     </td>
@@ -375,7 +420,7 @@ function Billing() {
                         style={{ textAlign: 'center', width: '100%' }}
                         value={row.price}
                         onChange={(e) =>
-                          handleTableDataChange(index, 'price', e.target.value,'table')
+                          handleTableDataChange(index, 'price', e.target.value, 'table')
                         }
                       />
                     </td>
@@ -386,7 +431,7 @@ function Billing() {
                         style={{ textAlign: 'center', width: '100%' }}
                         value={row.taxes}
                         onChange={(e) =>
-                          handleTableDataChange(index, 'taxes', e.target.value,'table')
+                          handleTableDataChange(index, 'taxes', e.target.value, 'table')
                         }
                       />
                     </td>
@@ -397,7 +442,7 @@ function Billing() {
                         style={{ textAlign: 'center', width: '100%' }}
                         value={row.total}
                         onChange={(e) =>
-                          handleTableDataChange(index, 'total', e.target.value,'table')
+                          handleTableDataChange(index, 'total', e.target.value, 'table')
                         }
                       />
                     </td>
@@ -450,7 +495,7 @@ function Billing() {
                           style={{ textAlign: 'center' }}
                           value={row.taxtype}
                           onChange={(e) =>
-                            handleTableDataChange(index, 'taxtype', e.target.value,'tax')
+                            handleTableDataChange(index, 'taxtype', e.target.value, 'tax')
                           }
                         />
                       </td>
@@ -461,7 +506,7 @@ function Billing() {
                           style={{ textAlign: 'center', width: '100%' }}
                           value={row.price}
                           onChange={(e) =>
-                            handleTableDataChange(index, 'price', e.target.value,'tax')
+                            handleTableDataChange(index, 'price', e.target.value, 'tax')
                           }
                         />
                       </td>
@@ -472,7 +517,7 @@ function Billing() {
                           style={{ textAlign: 'center', width: '100%' }}
                           value={row.rate}
                           onChange={(e) =>
-                            handleTableDataChange(index, 'rate', e.target.value,'tax')
+                            handleTableDataChange(index, 'rate', e.target.value, 'tax')
                           }
                         />
                       </td>
@@ -484,7 +529,7 @@ function Billing() {
                           style={{ textAlign: 'center', width: '100%' }}
                           value={row.total}
                           onChange={(e) =>
-                            handleTableDataChange(index, 'total', e.target.value,'tax')
+                            handleTableDataChange(index, 'total', e.target.value, 'tax')
                           }
                         />
                       </td>
@@ -601,7 +646,7 @@ function Billing() {
             <Col className='p-0' style={{ borderRight: '2px solid #000' }}>
 
               <img
-                src={selectedFile ? URL.createObjectURL(selectedFile) : billlogo}
+                src={selectedFile ? URL.createObjectURL(selectedFile) : base64Image}
                 alt="Scanner Preview"
                 style={{ width: '150px', height: '150px' }}
               />
@@ -610,7 +655,7 @@ function Billing() {
             <Col className='p-0' >
               <center>
                 <img
-                  src={stampFile ? URL.createObjectURL(stampFile) : billlogo}
+                  src={stampFile ? URL.createObjectURL(stampFile) : base64Image}
                   alt="Stamp Preview"
                   style={{ width: '150px', height: '150px' }}
                 /></center>
@@ -626,257 +671,257 @@ function Billing() {
           <Modal.Title>Preview</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div ref={targetRef}>
-            <div className="m-5" >
-            <center><h4 className='m-2' style={{ fontWeight: "bolder" }}>{title}</h4></center>
-            <Container className='p-0' style={{ border: '2px solid #000', padding: '20px' }}>
-              <Row className='m-0' style={{ borderBottom: '2px solid #000' }}>
-                <Col style={{padding:0}}>
+          <div ref={targetRef} >
+            <div style={{height: "240mm",width:"240mm",margin:"auto"}}>
+              <center><h4 className='m-1' style={{ fontWeight: "bolder" }}>{title}</h4></center>
+              <Container className='p-0' style={{ border: '2px solid #000', padding: '20px' }}>
+                <Row className='m-0' style={{ borderBottom: '2px solid #000' }}>
+                  <Col style={{ padding: 0 }}>
 
-                  <img
-                    src={logoFile ? URL.createObjectURL(logoFile) : billlogo}
-                    alt="Profile Preview"
-                    style={{ width: '150px', height: '120px' }}
-                  />
+                    <img
+                      src={logoFile ? URL.createObjectURL(logoFile) : base64Image}
+                      alt="Profile Preview"
+                      style={{ width: '150px', height: '120px' }}
+                    />
 
-                </Col>
-                <Col className='text-right'>
-                  <h5 className='m-0' style={{ fontWeight: "bolder" }} > {logoTitle}</h5>
-                  {titleaddress}<br></br>
+                  </Col>
+                  <Col className='text-right'>
+                    <h5 className='m-0' style={{ fontWeight: "bolder" }} > {logoTitle}</h5>
+                    {titleaddress}<br></br>
 
-                  <span>
-                    Email:{' '}
-                    {email}
-                  </span>
-                  <span>
-                    Phone No:{' '}
-                    {mobile}
-                  </span>
-                  <p className='m-0'>
-                    GSTIN:{' '}
-                    {gstin}
-                  </p>
-                </Col>
-              </Row>
-              <Row className='m-0' style={{ borderBottom: '2px solid #000' }}>
-                <Col className='p-0' style={{ borderRight: '2px solid #000' }}>
-                  <p className='m-0 px-2 py-1' style={{ borderBottom: '2px solid #000', fontWeight: "bolder", color: "white", backgroundColor: "#008000" }}>
-                    Estimate For
-                  </p>
-                  <div className='mx-2'>
-                    <p className="m-0" style={{ fontWeight: "bolder" }}>
-                      {name}
+                    <span>
+                      Email:{' '}
+                      {email}
+                    </span>
+                    <span>
+                      Phone No:{' '}
+                      {mobile}
+                    </span>
+                    <p className='m-0'>
+                      GSTIN:{' '}
+                      {gstin}
                     </p>
-                    <p className="m-0">
-                      {address}
+                  </Col>
+                </Row>
+                <Row className='m-0' style={{ borderBottom: '2px solid #000' }}>
+                  <Col className='p-0' style={{ borderRight: '2px solid #000' }}>
+                    <p className='m-0 px-2 py-1' style={{ borderBottom: '2px solid #000', fontWeight: "bolder", color: "white", backgroundColor: "#008000" }}>
+                      Estimate For
                     </p>
-                    <p className="m-0">
-                      {place}
+                    <div className='mx-2'>
+                      <p className="m-0" style={{ fontWeight: "bolder" }}>
+                        {name}
+                      </p>
+                      <p className="m-0">
+                        {address}
+                      </p>
+                      <p className="m-0">
+                        {place}
+                      </p>
+                      <p className="m-0">
+                        {city}
+                      </p>
+                      <p className="m-0">
+                        {state}
+                      </p>
+                    </div>
+
+                  </Col>
+                  <Col className='text-right'>
+                    <p style={{ marginTop: "7%" }}></p>
+                    <p className='m-0' style={{ fontWeight: "bolder" }}>
+                      Email:{' '}
+                      <span style={{ fontWeight: "normal" }}> {email}</span>
                     </p>
-                    <p className="m-0">
-                      {city}
+                    <p className='m-0' style={{ fontWeight: "bolder" }}>
+                      Estimate No:{' '}
+                      <span style={{ fontWeight: "normal" }}> {estimateNO}</span>
                     </p>
-                    <p className="m-0">
-                      {state}
+                    <p className='m-0' style={{ fontWeight: "bolder" }} >
+                      Date:{' '}
+                      <span style={{ fontWeight: "normal" }}> {date}</span>
+
                     </p>
-                  </div>
-
-                </Col>
-                <Col className='text-right'>
-                  <p style={{ marginTop: "7%" }}></p>
-                  <p className='m-0' style={{ fontWeight: "bolder" }}>
-                    Email:{' '}
-                    <span style={{ fontWeight: "normal" }}> {email}</span>
-                  </p>
-                  <p className='m-0' style={{ fontWeight: "bolder" }}>
-                    Estimate No:{' '}
-                    <span style={{ fontWeight: "normal" }}> {estimateNO}</span>
-                  </p>
-                  <p className='m-0' style={{ fontWeight: "bolder" }} >
-                    Date:{' '}
-                    <span style={{ fontWeight: "normal" }}> {date}</span>
-
-                  </p>
-                </Col>
-              </Row>
-              <Row className='m-0' style={{ borderBottom: '2px solid #000' }}>
-                <Table id="sourceTable">
-                  <thead>
-                    <tr className="text-center billing-table" style={{ backgroundColor: "#008000" }}>
-                      <th scope="col" style={{ width: 40 }}>#</th>
-                      <th scope="col">Item Name</th>
-                      <th scope="col">Item Code</th>
-                      <th scope="col" style={{ width: 40 }}>Quantity</th>
-                      <th scope="col" style={{ width: 80 }}>Unit</th>
-                      <th scope="col" style={{ width: 150 }}>Price</th>
-                      <th scope="col" style={{ width: 70 }}>Taxes</th>
-                      <th scope="col" style={{ width: 150 }}>Total Amount</th>
-                    </tr>
-                  </thead>
-
-                  <tbody className="text-center " id="myTable">
-                    {tableData.map((row, index) => (
-                      <tr key={index} className='bill-table'>
-                        <td>
-                          {row.sno}
-                        </td>
-                        <td>
-                          {row.itemName}
-                        </td>
-                        <td>
-                          {row.itemCode}
-                        </td>
-
-                        <td>
-                          {row.quantity}
-                        </td>
-                        <td>
-                          {row.unit}
-                        </td>
-                        <td>
-                          {row.price}
-                        </td>
-                        <td>
-                          {row.taxes}
-                        </td>
-                        <td>
-                          {row.total}
-                        </td>
-                      </tr>
-                    ))}
-                    <tr >
-                      <td></td>
-                      <td style={{ fontWeight: "bolder" }}>Total</td>
-                      <td></td>
-                      <td style={{ fontWeight: "bolder" }}>{qtytotal}</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td style={{ fontWeight: "bolder" }}>{totalamount}</td>
-                    </tr>
-                  </tbody>
-                </Table>
-              </Row>
-              <Row className='m-0' style={{ borderBottom: '2px solid #000' }}>
-                <Col className='p-0' style={{ borderRight: '2px solid #000' }}>
-
-                  <Table id="sourceTable" className='tax-table'>
+                  </Col>
+                </Row>
+                <Row className='m-0' style={{ borderBottom: '2px solid #000' }}>
+                  <Table id="sourceTable">
                     <thead>
                       <tr className="text-center billing-table" style={{ backgroundColor: "#008000" }}>
-                        <th scope="col" style={{ width: 80 }}>Tax Type</th>
+                        <th scope="col" style={{ width: 40 }}>#</th>
+                        <th scope="col">Item Name</th>
+                        <th scope="col">Item Code</th>
+                        <th scope="col" style={{ width: 40 }}>Quantity</th>
+                        <th scope="col" style={{ width: 80 }}>Unit</th>
                         <th scope="col" style={{ width: 150 }}>Price</th>
-                        <th scope="col" style={{ width: 70 }}>Rate</th>
-                        <th scope="col" style={{ width: 150 }}>Tax Amount</th>
+                        <th scope="col" style={{ width: 70 }}>Taxes</th>
+                        <th scope="col" style={{ width: 150 }}>Total Amount</th>
                       </tr>
                     </thead>
-                    <tbody className="text-center" id="myTable">
-                      {taxData.map((row, index) => (
-                        <tr key={index}>
+
+                    <tbody className="text-center " id="myTable">
+                      {tableData.map((row, index) => (
+                        <tr key={index} className='bill-table'>
                           <td>
-                            {row.taxtype}
+                            {row.sno}
+                          </td>
+                          <td>
+                            {row.itemName}
+                          </td>
+                          <td>
+                            {row.itemCode}
+                          </td>
+
+                          <td>
+                            {row.quantity}
+                          </td>
+                          <td>
+                            {row.unit}
                           </td>
                           <td>
                             {row.price}
                           </td>
                           <td>
-                            {row.rate}
+                            {row.taxes}
                           </td>
-
                           <td>
                             {row.total}
                           </td>
-
                         </tr>
                       ))}
+                      <tr >
+                        <td></td>
+                        <td style={{ fontWeight: "bolder" }}>Total</td>
+                        <td></td>
+                        <td style={{ fontWeight: "bolder" }}>{qtytotal}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td style={{ fontWeight: "bolder" }}>{totalamount}</td>
+                      </tr>
                     </tbody>
-
                   </Table>
-                  <p className='m-0 px-2 py-1' style={{ borderBottom: '2px solid #000', fontWeight: "bolder", color: "white", backgroundColor: "#008000" }}>
-                    Estimate Amount in words
-                  </p>
-                  <p className="m-0">
-                    {amountword}
-                  </p>
-                </Col>
-                <Col className='p-0'>
-                  <p className='m-0 px-2 py-1' style={{ borderBottom: '2px solid #000', fontWeight: "bolder", color: "white", backgroundColor: "#008000" }}>
-                    Amounts
-                  </p>
-                  <p className='subtotal-container'>
-                    <span style={{ marginLeft: 10 }}>Sub Total</span>
-                    <span className='subtotal-amount' >₹ {subtotal}</span>
-                  </p>
-                  <p className='subtotal-container'>
-                    <span style={{ marginLeft: 10 }}>Round off</span>
-                    <span className='subtotal-amount' >₹ {roundoff}</span>
-                  </p>
-                  <p style={{ fontWeight: "bolder" }} className='subtotal-container'>
-                    <span style={{ marginLeft: 10 }}>Total</span>
-                    <span className='subtotal-amount'>₹ {parseFloat(subtotal) + parseFloat(roundoff)}</span>
-                  </p>
-                </Col>
-              </Row>
-              <Row className='m-0' style={{ borderBottom: '2px solid #000' }}>
-                <Col className='p-0' style={{ borderRight: '2px solid #000' }}>
-                  <p className='m-0 px-2 py-1' style={{ borderBottom: '2px solid #000', fontWeight: "bolder", color: "white", backgroundColor: "#008000" }}>
-                    Terms and Conditions
-                  </p>
-                  <p className="m-0">
-                    {terms}
-                  </p>
-                  <p className='m-0 px-2 py-1' style={{ borderBottom: '2px solid #000', fontWeight: "bolder", color: "white", backgroundColor: "#008000" }}>
-                    Bank Details
-                  </p>
-                  <p className="m-0">
-                    {bankName}
-                  </p>
-                  <p className="m-0">
-                    <span style={{ fontWeight: "bolder" }}>
-                      Account No:{' '}
-                      {accountNumber}
-                    </span>
-                  </p>
-                  <p className="m-0">
-                    <span style={{ fontWeight: "bolder" }}>
-                      IFSC code:{' '}
-                      {ifsc}
-                    </span>
-                  </p>
-                  <p className="m-0">
-                    <span style={{ fontWeight: "bolder" }}>
-                      Holder's name:{' '}
-                      {holder}
-                    </span>
+                </Row>
+                <Row className='m-0' style={{ borderBottom: '2px solid #000' }}>
+                  <Col className='p-0' style={{ borderRight: '2px solid #000' }}>
 
-                  </p>
-                </Col>
-                <Col className='p-0' style={{ borderRight: '2px solid #000' }}>
+                    <Table id="sourceTable" className='tax-table'>
+                      <thead>
+                        <tr className="text-center billing-table" style={{ backgroundColor: "#008000" }}>
+                          <th scope="col" style={{ width: 80 }}>Tax Type</th>
+                          <th scope="col" style={{ width: 150 }}>Price</th>
+                          <th scope="col" style={{ width: 70 }}>Rate</th>
+                          <th scope="col" style={{ width: 150 }}>Tax Amount</th>
+                        </tr>
+                      </thead>
+                      <tbody className="text-center" id="myTable">
+                        {taxData.map((row, index) => (
+                          <tr key={index}>
+                            <td>
+                              {row.taxtype}
+                            </td>
+                            <td>
+                              {row.price}
+                            </td>
+                            <td>
+                              {row.rate}
+                            </td>
 
-                  <img
-                    src={selectedFile ? URL.createObjectURL(selectedFile) : billlogo}
-                    alt="Scanner Preview"
-                    style={{ width: '150px', height: '150px' }}
-                  />
+                            <td>
+                              {row.total}
+                            </td>
 
-                </Col>
-                <Col className='p-0' >
-                  <center>
+                          </tr>
+                        ))}
+                      </tbody>
+
+                    </Table>
+                    <p className='m-0 px-2 py-1' style={{ borderBottom: '2px solid #000', fontWeight: "bolder", color: "white", backgroundColor: "#008000" }}>
+                      Estimate Amount in words
+                    </p>
+                    <p className="m-0">
+                      {amountword}
+                    </p>
+                  </Col>
+                  <Col className='p-0'>
+                    <p className='m-0 px-2 py-1' style={{ borderBottom: '2px solid #000', fontWeight: "bolder", color: "white", backgroundColor: "#008000" }}>
+                      Amounts
+                    </p>
+                    <p className='subtotal-container'>
+                      <span style={{ marginLeft: 10 }}>Sub Total</span>
+                      <span className='subtotal-amount' >₹ {subtotal}</span>
+                    </p>
+                    <p className='subtotal-container'>
+                      <span style={{ marginLeft: 10 }}>Round off</span>
+                      <span className='subtotal-amount' >₹ {roundoff}</span>
+                    </p>
+                    <p style={{ fontWeight: "bolder" }} className='subtotal-container'>
+                      <span style={{ marginLeft: 10 }}>Total</span>
+                      <span className='subtotal-amount'>₹ {parseFloat(subtotal) + parseFloat(roundoff)}</span>
+                    </p>
+                  </Col>
+                </Row>
+                <Row className='m-0' style={{ borderBottom: '2px solid #000' }}>
+                  <Col className='p-0' style={{ borderRight: '2px solid #000' }}>
+                    <p className='m-0 px-2 py-1' style={{ borderBottom: '2px solid #000', fontWeight: "bolder", color: "white", backgroundColor: "#008000" }}>
+                      Terms and Conditions
+                    </p>
+                    <p className="m-0">
+                      {terms}
+                    </p>
+                    <p className='m-0 px-2 py-1' style={{ borderBottom: '2px solid #000', fontWeight: "bolder", color: "white", backgroundColor: "#008000" }}>
+                      Bank Details
+                    </p>
+                    <p className="m-0">
+                      {bankName}
+                    </p>
+                    <p className="m-0">
+                      <span style={{ fontWeight: "bolder" }}>
+                        Account No:{' '}
+                        {accountNumber}
+                      </span>
+                    </p>
+                    <p className="m-0">
+                      <span style={{ fontWeight: "bolder" }}>
+                        IFSC code:{' '}
+                        {ifsc}
+                      </span>
+                    </p>
+                    <p className="m-0">
+                      <span style={{ fontWeight: "bolder" }}>
+                        Holder's name:{' '}
+                        {holder}
+                      </span>
+
+                    </p>
+                  </Col>
+                  <Col className='p-0' style={{ borderRight: '2px solid #000' }}>
+
                     <img
-                      src={stampFile ? URL.createObjectURL(stampFile) : billlogo}
-                      alt="Stamp Preview"
+                      src={selectedFile ? URL.createObjectURL(selectedFile) : base64Image}
+                      alt="Scanner Preview"
                       style={{ width: '150px', height: '150px' }}
-                    /></center>
+                    />
 
-                </Col>
-              </Row>
-            </Container>
+                  </Col>
+                  <Col className='p-0' >
+                    <center>
+                      <img
+                        src={stampFile ? URL.createObjectURL(stampFile) : base64Image}
+                        alt="Stamp Preview"
+                        style={{ width: '150px', height: '150px' }}
+                      /></center>
 
-          </div>
+                  </Col>
+                </Row>
+              </Container>
+
+            </div>
           </div>
 
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={() => toPDF()}>
+          <Button variant="primary" onClick={sendHtmlToBackend}>
             Generate PDF
           </Button>
           <Button variant="secondary" onClick={() => setShowPreview(false)}>
