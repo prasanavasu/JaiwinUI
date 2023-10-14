@@ -7,7 +7,7 @@ const Html_Pdf = (html,styles) => {
       };
   
       // Make an HTTP POST request to your backend API
-      fetch('http://127.0.0.1:5000/convert_to_python', {
+      fetch('https://backend.jaiwin.co.in/convert_to_python', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
