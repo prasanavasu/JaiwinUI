@@ -1,9 +1,27 @@
-/* styles.css */
-.scroll-container {
-    display: flex;
-    overflow-x: auto;
-    padding-bottom: 16px;
-    height: 400px;
-    width: 100%; /* Set a specific width to the container */
+.arrow-btn{
+    background-color: transparent;
+    border: none;
+}
+
+
+/* Hide the track (background) and buttons of the scrollbar */
+::-webkit-scrollbar {
+    width: 0px; /* Adjust to your preference */
+  }
+  
+  /* Track (background) */
+  ::-webkit-scrollbar-track {
+    background: transparent; /* Make it transparent */
+  }
+  
+  /* Handle (thumb) */
+  ::-webkit-scrollbar-thumb {
+    background: transparent; /* Set a semi-transparent color */
+    border-radius: 0px; /* Rounded thumb */
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: transparent; /* Make it slightly more opaque on hover */
   }
   
