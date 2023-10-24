@@ -87,13 +87,12 @@ function Billing() {
   }
 
   const base64Data = await readFileAsBase64(file);
-  console.log("id",id)
   if (id === "scanner") {
-    setSelectedFile(file, base64Data);
+    setSelectedFile(base64Data);
   } else if (id === "logo") {
-    setLogoFile(file, base64Data);
+    setLogoFile(base64Data);
   } else {
-    setStampFile(file, base64Data);
+    setStampFile(base64Data);
   }
 };
 
@@ -180,6 +179,7 @@ const readFileAsBase64 = (file) => {
   const previewContent = () => {
     setShowPreview(true);
   };
+  
 
   const targetRef = useRef(null);
   const sendHtmlToBackend = () => {
@@ -188,7 +188,18 @@ const readFileAsBase64 = (file) => {
 
     // Extract the associated styles (CSS) from the head of the document
     const styles = Array.from(document.querySelectorAll('style')).map(style => style.innerHTML).join('');
-    Html_Pdf(html, styles)
+
+    // Fetch and concatenate external styles
+    const linkTags = Array.from(document.querySelectorAll('link[rel="stylesheet"]'));
+    const fetchPromises = linkTags.map(linkTag => fetch(linkTag.getAttribute('href')).then(response => response.text()));
+
+    Promise.all(fetchPromises)
+      .then(externalStyles => {
+        const allStyles = styles + externalStyles.join('');
+        Html_Pdf(html, allStyles)
+      });
+
+    
 
   };
 
@@ -211,7 +222,7 @@ const readFileAsBase64 = (file) => {
             <Col>
 
               <img
-                src={logoFile ? URL.createObjectURL(logoFile) : base64Image}
+                src={logoFile ? logoFile : base64Image}
                 alt="Profile Preview"
                 style={{ width: '150px', height: '100px' }}
               />
@@ -651,7 +662,7 @@ const readFileAsBase64 = (file) => {
             <Col className='p-0' style={{ borderRight: '2px solid #000' }}>
 
               <img
-                src={selectedFile ? URL.createObjectURL(selectedFile) : base64Image}
+                src={selectedFile ? selectedFile : base64Image}
                 alt="Scanner Preview"
                 style={{ width: '150px', height: '150px' }}
               />
@@ -660,7 +671,7 @@ const readFileAsBase64 = (file) => {
             <Col className='p-0' >
               <center>
                 <img
-                  src={stampFile ? URL.createObjectURL(stampFile) : base64Image}
+                  src={stampFile ? stampFile : base64Image}
                   alt="Stamp Preview"
                   style={{ width: '150px', height: '150px' }}
                 /></center>
@@ -677,16 +688,16 @@ const readFileAsBase64 = (file) => {
         </Modal.Header>
         <Modal.Body>
           <div ref={targetRef} >
-            <div style={{height: "240mm",width:"240mm",margin:"auto"}}>
+            <div style={{height: "100%",margin:"auto", maxWidth:"fit-content"}}>
               <center><h4 className='m-1' style={{ fontWeight: "bolder" }}>{title}</h4></center>
               <Container className='p-0' style={{ border: '2px solid #000', padding: '20px' }}>
                 <Row className='m-0' style={{ borderBottom: '2px solid #000' }}>
                   <Col style={{ padding: 0 }}>
 
                     <img
-                      src={logoFile ? URL.createObjectURL(logoFile) : base64Image}
+                      src={logoFile ? logoFile : base64Image}
                       alt="Profile Preview"
-                      style={{ width: '150px', height: '120px' }}
+                      style={{ width: '50px', height: '120px' }}
                     />
 
                   </Col>
@@ -707,6 +718,7 @@ const readFileAsBase64 = (file) => {
                       {gstin}
                     </p>
                   </Col>
+                  
                 </Row>
                 <Row className='m-0' style={{ borderBottom: '2px solid #000' }}>
                   <Col className='p-0' style={{ borderRight: '2px solid #000' }}>
@@ -903,7 +915,7 @@ const readFileAsBase64 = (file) => {
                   <Col className='p-0' style={{ borderRight: '2px solid #000' }}>
 
                     <img
-                      src={selectedFile ? URL.createObjectURL(selectedFile) : base64Image}
+                      src={selectedFile ? selectedFile : base64Image}
                       alt="Scanner Preview"
                       style={{ width: '150px', height: '150px' }}
                     />
@@ -912,7 +924,7 @@ const readFileAsBase64 = (file) => {
                   <Col className='p-0' >
                     <center>
                       <img
-                        src={stampFile ? URL.createObjectURL(stampFile) : base64Image}
+                        src={stampFile ? stampFile : base64Image}
                         alt="Stamp Preview"
                         style={{ width: '150px', height: '150px' }}
                       /></center>

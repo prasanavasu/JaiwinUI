@@ -55,23 +55,23 @@ function LetterPad() {
       reader.onload = () => {
         // Inside the onload callback, you can access reader.result
         const base64Data = reader.result;
-  
+
         // Create a new file object with the dataURL
         const newFile = {
           id: count + 1,
           name: file.name,
           dataURL: base64Data,
         };
-  
+
         // Update your state with the new file
         setCount(count + 1);
         setFiles([...files, newFile]);
       };
-  
+
       return null; // You don't need to return anything in the map function
     });
   };
-  
+
 
   const removeFile = (id) => {
     const updatedFiles = files.filter((file) => file.id !== id);
@@ -113,8 +113,19 @@ function LetterPad() {
 
     // Extract the associated styles (CSS) from the head of the document
     const styles = Array.from(document.querySelectorAll('style')).map(style => style.innerHTML).join('');
-    Html_Pdf(html,styles)
+
+    // Fetch and concatenate external styles
+    const linkTags = Array.from(document.querySelectorAll('link[rel="stylesheet"]'));
+    const fetchPromises = linkTags.map(linkTag => fetch(linkTag.getAttribute('href')).then(response => response.text()));
+
+    Promise.all(fetchPromises)
+      .then(externalStyles => {
+        const allStyles = styles + externalStyles.join('');
+        Html_Pdf(html, allStyles)
+      });
+
     
+
   };
 
   return (
@@ -378,7 +389,7 @@ function LetterPad() {
         </Modal.Header>
         <Modal.Body>
           <div className="container" ref={targetRef}>
-            <p className="text-right m-0 text-success" style={{color:"#008000"}}>
+            <p className="text-right m-0 text-success" style={{ color: "#008000" }}>
               <strong> CELL: </strong> <span className="" id="mobile_val">{mobile}</span>
             </p>
             <p className="text-center m-0">
@@ -392,7 +403,7 @@ function LetterPad() {
             </p>
             <hr className="m-0 text-success border-3" />
             <hr className="m-1 txt-success border-3" /><br />
-            <p className="text-right m-0 text-success" style={{color:"#008000"}}>
+            <p className="text-right m-0 text-success" style={{ color: "#008000" }}>
               <strong> Date: </strong> <span className="">{formatDate(date)}</span>
             </p><br />
             <div className="container">
