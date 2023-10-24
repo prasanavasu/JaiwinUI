@@ -5,9 +5,11 @@ const Html_Pdf = (html,styles) => {
         html_content: html,
         styles: styles,
       };
-  
+      
+      // const local = "http://localhost:5000/"
+      const prod = "https://backend.jaiwin.co.in/"
       // Make an HTTP POST request to your backend API
-      fetch('https://backend.jaiwin.co.in/convert_to_python', {
+      fetch(`${prod}convert_to_python`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

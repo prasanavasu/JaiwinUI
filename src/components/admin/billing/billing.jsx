@@ -1,4 +1,4 @@
-import { React, useState, useRef,useEffect } from 'react';
+import { React, useState, useRef, useEffect } from 'react';
 import JaiwinNavbar from '../navbar';
 import { Container, Row, Col, Button, Table, Modal } from 'react-bootstrap';
 import '../billing/billing.css'
@@ -79,39 +79,39 @@ function Billing() {
   ]);
 
 
-  const handleFileChange = async (e,id) => {
-  const file = e.target.files[0];
-  if (!file) {
-    // Handle the case where no file is selected
-    return;
-  }
+  const handleFileChange = async (e, id) => {
+    const file = e.target.files[0];
+    if (!file) {
+      // Handle the case where no file is selected
+      return;
+    }
 
-  const base64Data = await readFileAsBase64(file);
-  if (id === "scanner") {
-    setSelectedFile(base64Data);
-  } else if (id === "logo") {
-    setLogoFile(base64Data);
-  } else {
-    setStampFile(base64Data);
-  }
-};
+    const base64Data = await readFileAsBase64(file);
+    if (id === "scanner") {
+      setSelectedFile(base64Data);
+    } else if (id === "logo") {
+      setLogoFile(base64Data);
+    } else {
+      setStampFile(base64Data);
+    }
+  };
 
-// Function to read a file as Base64 data
-const readFileAsBase64 = (file) => {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
+  // Function to read a file as Base64 data
+  const readFileAsBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
 
-    reader.onload = () => {
-      resolve(reader.result);
-    };
+      reader.onload = () => {
+        resolve(reader.result);
+      };
 
-    reader.onerror = (error) => {
-      reject(error);
-    };
+      reader.onerror = (error) => {
+        reject(error);
+      };
 
-    reader.readAsDataURL(file);
-  });
-};
+      reader.readAsDataURL(file);
+    });
+  };
 
 
   const handleTableDataChange = (index, field, value, id) => {
@@ -179,7 +179,7 @@ const readFileAsBase64 = (file) => {
   const previewContent = () => {
     setShowPreview(true);
   };
-  
+
   const targetRef = useRef(null);
   const sendHtmlToBackend = () => {
     // Extract the HTML content from the targetRef (the container with the ref)
@@ -198,7 +198,7 @@ const readFileAsBase64 = (file) => {
         Html_Pdf(html, allStyles)
       });
 
-    
+
 
   };
 
@@ -216,8 +216,8 @@ const readFileAsBase64 = (file) => {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         /></h4></center>
-        <Container className='p-0' style={{ border: '2px solid #000', padding: '20px' }}>
-          <Row className='m-0' style={{ borderBottom: '2px solid #000' }}>
+        <Container className='p-0' style={{ border: '1px solid #000', padding: '20px' }}>
+          <Row className='m-0' style={{ borderBottom: '1px solid #000' }}>
             <Col>
 
               <img
@@ -225,7 +225,7 @@ const readFileAsBase64 = (file) => {
                 alt="Profile Preview"
                 style={{ width: '150px', height: '100px' }}
               />
-              <input type="file" accept="image/*"  onChange={(e) => handleFileChange(e, "logo")} />
+              <input type="file" accept="image/*" onChange={(e) => handleFileChange(e, "logo")} />
 
             </Col>
             <Col className='text-right'>
@@ -272,9 +272,9 @@ const readFileAsBase64 = (file) => {
               </p>
             </Col>
           </Row>
-          <Row className='m-0' style={{ borderBottom: '2px solid #000' }}>
-            <Col className='p-0' style={{ borderRight: '2px solid #000' }}>
-              <p className='m-0 px-2 py-1' style={{ borderBottom: '2px solid #000', fontWeight: "bolder", color: "white", backgroundColor: "#008000" }}>
+          <Row className='m-0' style={{ borderBottom: '1px solid #000' }}>
+            <Col className='p-0' style={{ borderRight: '1px solid #000' }}>
+              <p className='m-0 px-2 py-1' style={{ borderBottom: '1px solid #000', fontWeight: "bolder", color: "white", backgroundColor: "#008000" }}>
                 Estimate For
               </p>
               <div className='mx-2'>
@@ -348,7 +348,7 @@ const readFileAsBase64 = (file) => {
               </p>
             </Col>
           </Row>
-          <Row className='m-0' style={{ borderBottom: '2px solid #000' }}>
+          <Row className='m-0' style={{ borderBottom: '1px solid #000' }}>
             <div className="my-2">
               <Button variant="success" size="sm" onClick={() => addRow('table')}><FontAwesomeIcon icon={faPlusSquare} /></Button>{' '}
               <Button variant="danger" size="sm" onClick={() => removeRow('table')}>
@@ -488,8 +488,8 @@ const readFileAsBase64 = (file) => {
             <Button variant="success" size="sm" onClick={() => addRow('tax')}><FontAwesomeIcon icon={faPlusSquare} /></Button>{' '}
             <Button variant="danger" size="sm" onClick={() => removeRow('tax')}><FontAwesomeIcon icon={faTrash} /></Button>{' '}
           </div>
-          <Row className='m-0' style={{ borderBottom: '2px solid #000' }}>
-            <Col className='p-0' style={{ borderRight: '2px solid #000' }}>
+          <Row className='m-0' style={{ borderBottom: '1px solid #000' }}>
+            <Col className='p-0' style={{ borderRight: '1px solid #000' }}>
 
               <Table id="sourceTable" className='tax-table'>
                 <thead>
@@ -554,7 +554,7 @@ const readFileAsBase64 = (file) => {
                 </tbody>
 
               </Table>
-              <p className='m-0 px-2 py-1' style={{ borderBottom: '2px solid #000', fontWeight: "bolder", color: "white", backgroundColor: "#008000" }}>
+              <p className='m-0 px-2 py-1' style={{ borderBottom: '1px solid #000', fontWeight: "bolder", color: "white", backgroundColor: "#008000" }}>
                 Estimate Amount in words
               </p>
               <p className="m-0">
@@ -568,7 +568,7 @@ const readFileAsBase64 = (file) => {
               </p>
             </Col>
             <Col className='p-0'>
-              <p className='m-0 px-2 py-1' style={{ borderBottom: '2px solid #000', fontWeight: "bolder", color: "white", backgroundColor: "#008000" }}>
+              <p className='m-0 px-2 py-1' style={{ borderBottom: '1px solid #000', fontWeight: "bolder", color: "white", backgroundColor: "#008000" }}>
                 Amounts
               </p>
               <p className='subtotal-container'>
@@ -595,9 +595,9 @@ const readFileAsBase64 = (file) => {
               </p>
             </Col>
           </Row>
-          <Row className='m-0' style={{ borderBottom: '2px solid #000' }}>
-            <Col className='p-0' style={{ borderRight: '2px solid #000' }}>
-              <p className='m-0 px-2 py-1' style={{ borderBottom: '2px solid #000', fontWeight: "bolder", color: "white", backgroundColor: "#008000" }}>
+          <Row className='m-0' style={{ borderBottom: '1px solid #000' }}>
+            <Col className='p-0' style={{ borderRight: '1px solid #000' }}>
+              <p className='m-0 px-2 py-1' style={{ borderBottom: '1px solid #000', fontWeight: "bolder", color: "white", backgroundColor: "#008000" }}>
                 Terms and Conditions
               </p>
               <p className="m-0">
@@ -609,7 +609,7 @@ const readFileAsBase64 = (file) => {
                   onChange={(e) => SetTerms(e.target.value)}
                 />
               </p>
-              <p className='m-0 px-2 py-1' style={{ borderBottom: '2px solid #000', fontWeight: "bolder", color: "white", backgroundColor: "#008000" }}>
+              <p className='m-0 px-2 py-1' style={{ borderBottom: '1px solid #000', fontWeight: "bolder", color: "white", backgroundColor: "#008000" }}>
                 Bank Details
               </p>
               <p className="m-0">
@@ -658,7 +658,7 @@ const readFileAsBase64 = (file) => {
 
               </p>
             </Col>
-            <Col className='p-0' style={{ borderRight: '2px solid #000' }}>
+            <Col className='p-0' style={{ borderRight: '1px solid #000' }}>
 
               <img
                 src={selectedFile ? selectedFile : base64Image}
@@ -687,80 +687,82 @@ const readFileAsBase64 = (file) => {
         </Modal.Header>
         <Modal.Body>
           <div ref={targetRef} >
-            <div style={{height: "100%",margin:"auto", maxWidth:"fit-content"}}>
+            <div style={{ height: "100%", margin: "auto", maxWidth: "fit-content" }}>
               <center><h4 className='m-1' style={{ fontWeight: "bolder" }}>{title}</h4></center>
-              <Container className='p-0' style={{ border: '2px solid #000', padding: '20px' }}>
-                <Row className='m-0' style={{ borderBottom: '2px solid #000' }}>
-                  <Col style={{ padding: 0 }}>
+              <Container className='p-0' style={{ border: '1px solid #000', padding: '20px' }}>
+                <Table className='mb-0'>
+                  <tbody>
+                    <tr style={{ borderBottom: '1px solid #000' }}>
 
-                    <img
-                      src={logoFile ? logoFile : base64Image}
-                      alt="Profile Preview"
-                      style={{ width: '150px', height: '120px' }}
-                    />
+                      <td style={{ border: '1px solid #00000000' }}>
+                        <h5 className='m-0' style={{ fontWeight: "bolder" }} > {logoTitle}</h5>
+                        <p className='m-0'> {titleaddress}</p>
 
-                  </Col>
-                  <Col className='text-right'>
-                    <h5 className='m-0' style={{ fontWeight: "bolder" }} > {logoTitle}</h5>
-                    {titleaddress}<br></br>
+                        <p className='m-0'>
+                          Email:{' '}
+                          {email}
+                        </p>
+                        <span>
+                          Phone No:{' '}
+                          {mobile}
+                        </span>
+                        <p className='m-0'>
+                          GSTIN:{' '}
+                          {gstin}
+                        </p>
+                      </td>
+                      <td style={{ padding: 0, border: '0px', textAlign: 'right' }}> <img className='p-1'
+                        src={logoFile ? logoFile : base64Image}
+                        alt="Profile Preview"
+                        style={{ width: '300px', height: '135px' }}
+                      /></td>
+                    </tr>
 
-                    <span>
-                      Email:{' '}
-                      {email}
-                    </span>
-                    <span>
-                      Phone No:{' '}
-                      {mobile}
-                    </span>
-                    <p className='m-0'>
-                      GSTIN:{' '}
-                      {gstin}
-                    </p>
-                  </Col>
-                </Row>
-                <Row className='m-0' style={{ borderBottom: '2px solid #000' }}>
-                  <Col className='p-0' style={{ borderRight: '2px solid #000' }}>
-                    <p className='m-0 px-2 py-1' style={{ borderBottom: '2px solid #000', fontWeight: "bolder", color: "white", backgroundColor: "#008000" }}>
-                      Estimate For
-                    </p>
-                    <div className='mx-2'>
-                      <p className="m-0" style={{ fontWeight: "bolder" }}>
-                        {name}
-                      </p>
-                      <p className="m-0">
-                        {address}
-                      </p>
-                      <p className="m-0">
-                        {place}
-                      </p>
-                      <p className="m-0">
-                        {city}
-                      </p>
-                      <p className="m-0">
-                        {state}
-                      </p>
-                    </div>
+                    <tr style={{ borderBottom: '1px solid #000' }}>
+                      <td className='p-0' style={{ borderRight: '1px solid #000 !important' }}>
+                        <p className='m-0 px-2 py-1' style={{ borderBottom: '1px solid #000', fontWeight: "bolder", color: "white", backgroundColor: "#008000" }}>
+                          Estimate For
+                        </p>
+                        <div className='mx-2'>
+                          <p className="m-0" style={{ fontWeight: "bolder" }}>
+                            {name}
+                          </p>
+                          <p className="m-0">
+                            {address}
+                          </p>
+                          <p className="m-0">
+                            {place}
+                          </p>
+                          <p className="m-0">
+                            {city}
+                          </p>
+                          <p className="m-0">
+                            {state}
+                          </p>
+                        </div>
 
-                  </Col>
-                  <Col className='text-right'>
-                    <p style={{ marginTop: "7%" }}></p>
-                    <p className='m-0' style={{ fontWeight: "bolder" }}>
-                      Email:{' '}
-                      <span style={{ fontWeight: "normal" }}> {email}</span>
-                    </p>
-                    <p className='m-0' style={{ fontWeight: "bolder" }}>
-                      Estimate No:{' '}
-                      <span style={{ fontWeight: "normal" }}> {estimateNO}</span>
-                    </p>
-                    <p className='m-0' style={{ fontWeight: "bolder" }} >
-                      Date:{' '}
-                      <span style={{ fontWeight: "normal" }}> {formatDate(date)}</span>
+                      </td>
+                      <td style={{border: '0px' }}>
+                        <p style={{ marginTop: "20%" }}></p>
+                        <p className='m-0' style={{ fontWeight: "bolder" }}>
+                          Email:{' '}
+                          <span style={{ fontWeight: "normal" }}> {email}</span>
+                        </p>
+                        <p className='m-0' style={{ fontWeight: "bolder" }}>
+                          Estimate No:{' '}
+                          <span style={{ fontWeight: "normal" }}> {estimateNO}</span>
+                        </p>
+                        <p className='m-0' style={{ fontWeight: "bolder" }} >
+                          Date:{' '}
+                          <span style={{ fontWeight: "normal" }}> {formatDate(date)}</span>
 
-                    </p>
-                  </Col>
-                </Row>
-                <Row className='m-0' style={{ borderBottom: '2px solid #000' }}>
-                  <Table id="sourceTable">
+                        </p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </Table>
+                <Row className='m-0' style={{ borderBottom: '0px solid #000' }}>
+                  <Table id="sourceTable" className='mb-0'>
                     <thead>
                       <tr className="text-center billing-table" style={{ backgroundColor: "#008000" }}>
                         <th scope="col" style={{ width: 40 }}>#</th>
@@ -817,8 +819,8 @@ const readFileAsBase64 = (file) => {
                     </tbody>
                   </Table>
                 </Row>
-                <Row className='m-0' style={{ borderBottom: '2px solid #000' }}>
-                  <Col className='p-0' style={{ borderRight: '2px solid #000' }}>
+                <Row className='m-0' style={{ borderBottom: '1px solid #000' }}>
+                  <Col className='p-0' style={{ borderRight: '0px solid #000' }}>
 
                     <Table id="sourceTable" className='tax-table'>
                       <thead>
@@ -851,84 +853,108 @@ const readFileAsBase64 = (file) => {
                       </tbody>
 
                     </Table>
-                    <p className='m-0 px-2 py-1' style={{ borderBottom: '2px solid #000', fontWeight: "bolder", color: "white", backgroundColor: "#008000" }}>
+
+                  </Col>
+
+                </Row>
+                <Row className='m-0' style={{ borderBottom: '1px solid #000' }} >
+                  <Col className='p-0' style={{ borderRight: '1px solid #000' }}>
+                    <p className='m-0 px-2 py-1' style={{ borderBottom: '1px solid #000', fontWeight: "bolder", color: "white", backgroundColor: "#008000" }}>
+                      Amounts
+                    </p>
+
+                    <Table className='mb-0'>
+                      <tbody >
+                        <tr className='subtotal-container' style={{ border: '0px' }}>
+                          <td style={{ border: '0px' }}>Sub Total</td>
+                          <td className='subtotal-amount text-right' style={{ border: '0px' }}>₹ {subtotal}</td>
+                        </tr>
+                        <tr className='subtotal-container' style={{ border: '0px' }}>
+                          <td style={{ border: '0px' }}>Round off</td>
+                          <td className='subtotal-amount text-right' style={{ border: '0px' }}>₹ {roundoff}</td>
+                        </tr>
+                        <tr className='subtotal-container' style={{ border: '0px' }}>
+                          <td style={{ border: '0px' }}>Total</td>
+                          <td className='subtotal-amount text-right' style={{ border: '0px' }}>₹ {parseFloat(subtotal) + parseFloat(roundoff)}</td>
+                        </tr>
+
+
+                      </tbody>
+                    </Table>
+                  </Col>
+                </Row>
+                <Row className='m-0' style={{ borderBottom: '1px solid #000' }}>
+                  <Col className='p-0' style={{ border: '0px' }}>
+                    <p className='mx-0 px-2 py-1' style={{ borderBottom: '1px solid #000', fontWeight: "bolder", color: "white", backgroundColor: "#008000" }}>
                       Estimate Amount in words
                     </p>
-                    <p className="m-0">
+                    <p className="mx-2">
                       {amountword}
                     </p>
                   </Col>
-                  <Col className='p-0'>
-                    <p className='m-0 px-2 py-1' style={{ borderBottom: '2px solid #000', fontWeight: "bolder", color: "white", backgroundColor: "#008000" }}>
-                      Amounts
-                    </p>
-                    <p className='subtotal-container'>
-                      <span style={{ marginLeft: 10 }}>Sub Total</span>
-                      <span className='subtotal-amount' >₹ {subtotal}</span>
-                    </p>
-                    <p className='subtotal-container'>
-                      <span style={{ marginLeft: 10 }}>Round off</span>
-                      <span className='subtotal-amount' >₹ {roundoff}</span>
-                    </p>
-                    <p style={{ fontWeight: "bolder" }} className='subtotal-container'>
-                      <span style={{ marginLeft: 10 }}>Total</span>
-                      <span className='subtotal-amount'>₹ {parseFloat(subtotal) + parseFloat(roundoff)}</span>
-                    </p>
-                  </Col>
                 </Row>
-                <Row className='m-0' style={{ borderBottom: '2px solid #000' }}>
-                  <Col className='p-0' style={{ borderRight: '2px solid #000' }}>
-                    <p className='m-0 px-2 py-1' style={{ borderBottom: '2px solid #000', fontWeight: "bolder", color: "white", backgroundColor: "#008000" }}>
+                <Row className='m-0' style={{ borderBottom: '1px solid #000' }}>
+                  <Col className='p-0' style={{ border: '0px' }}>
+                    <p className='mx-0 px-2 py-1' style={{ borderBottom: '1px solid #000', fontWeight: "bolder", color: "white", backgroundColor: "#008000" }}>
                       Terms and Conditions
                     </p>
-                    <p className="m-0">
+                    <p className="mx-2">
                       {terms}
                     </p>
-                    <p className='m-0 px-2 py-1' style={{ borderBottom: '2px solid #000', fontWeight: "bolder", color: "white", backgroundColor: "#008000" }}>
-                      Bank Details
-                    </p>
-                    <p className="m-0">
-                      {bankName}
-                    </p>
-                    <p className="m-0">
-                      <span style={{ fontWeight: "bolder" }}>
-                        Account No:{' '}
-                        {accountNumber}
-                      </span>
-                    </p>
-                    <p className="m-0">
-                      <span style={{ fontWeight: "bolder" }}>
-                        IFSC code:{' '}
-                        {ifsc}
-                      </span>
-                    </p>
-                    <p className="m-0">
-                      <span style={{ fontWeight: "bolder" }}>
-                        Holder's name:{' '}
-                        {holder}
-                      </span>
-
-                    </p>
-                  </Col>
-                  <Col className='p-0' style={{ borderRight: '2px solid #000' }}>
-
-                    <img
-                      src={selectedFile ? selectedFile : base64Image}
-                      alt="Scanner Preview"
-                      style={{ width: '150px', height: '150px' }}
-                    />
-
-                  </Col>
-                  <Col className='p-0' >
-                    <center>
-                      <img
-                        src={stampFile ? stampFile : base64Image}
-                        alt="Stamp Preview"
-                        style={{ width: '150px', height: '150px' }}
-                      /></center>
-
                   </Col>
                 </Row>
+                <Table className='mb-0'>
+                  <tbody>
+                    <tr style={{ borderBottom: '1px solid #000' }}>
+
+                      <td className='p-0' style={{ borderRight: '1px solid #000' }}>
+                        <p className='m-0 px-2 py-1' style={{ borderBottom: '1px solid #000', fontWeight: "bolder", color: "white", backgroundColor: "#008000" }}>
+                          Bank Details
+                        </p>
+                        <p className="my-0 mx-2">
+                          {bankName}
+                        </p>
+                        <p className="my-0 mx-2">
+                          <span style={{ fontWeight: "bolder" }}>
+                            Account No:{' '}
+                            {accountNumber}
+                          </span>
+                        </p>
+                        <p className="my-0 mx-2">
+                          <span style={{ fontWeight: "bolder" }}>
+                            IFSC code:{' '}
+                            {ifsc}
+                          </span>
+                        </p>
+                        <p className="my-0 mx-2">
+                          <span style={{ fontWeight: "bolder" }}>
+                            Holder's name:{' '}
+                            {holder}
+                          </span>
+
+                        </p>
+                      </td>
+                      <td className='p-0' style={{ borderRight: '1px solid #000' }}>
+                        <center>
+                          <img className='p-1'
+                            src={selectedFile ? selectedFile : base64Image}
+                            alt="Scanner Preview"
+                            style={{ width: '150px', height: '140px' }}
+                          /></center>
+
+                      </td>
+                      <td className='p-0' style={{ border: '0px' }}>
+                        <center>
+                          <img className='p-1'
+                            src={stampFile ? stampFile : base64Image}
+                            alt="Stamp Preview"
+                            style={{ width: '150px', height: '140px' }}
+                          /></center>
+
+                      </td>
+                    </tr>
+                  </tbody>
+                </Table>
               </Container>
 
             </div>
