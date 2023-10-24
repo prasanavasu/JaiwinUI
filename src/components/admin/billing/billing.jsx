@@ -180,7 +180,6 @@ const readFileAsBase64 = (file) => {
     setShowPreview(true);
   };
   
-
   const targetRef = useRef(null);
   const sendHtmlToBackend = () => {
     // Extract the HTML content from the targetRef (the container with the ref)
@@ -697,7 +696,7 @@ const readFileAsBase64 = (file) => {
                     <img
                       src={logoFile ? logoFile : base64Image}
                       alt="Profile Preview"
-                      style={{ width: '50px', height: '120px' }}
+                      style={{ width: '150px', height: '120px' }}
                     />
 
                   </Col>
@@ -718,7 +717,6 @@ const readFileAsBase64 = (file) => {
                       {gstin}
                     </p>
                   </Col>
-                  
                 </Row>
                 <Row className='m-0' style={{ borderBottom: '2px solid #000' }}>
                   <Col className='p-0' style={{ borderRight: '2px solid #000' }}>
