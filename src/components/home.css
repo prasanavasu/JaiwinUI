@@ -1,27 +1,72 @@
-.arrow-btn{
-    background-color: transparent;
-    border: none;
+.arrow-btn {
+  background-color: transparent;
+  border: none;
 }
 
 
 /* Hide the track (background) and buttons of the scrollbar */
 ::-webkit-scrollbar {
-    width: 0px; /* Adjust to your preference */
-  }
-  
-  /* Track (background) */
-  ::-webkit-scrollbar-track {
-    background: transparent; /* Make it transparent */
-  }
-  
-  /* Handle (thumb) */
-  ::-webkit-scrollbar-thumb {
-    background: transparent; /* Set a semi-transparent color */
-    border-radius: 0px; /* Rounded thumb */
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: transparent; /* Make it slightly more opaque on hover */
-  }
-  
+  width: 0px;
+  /* Adjust to your preference */
+}
+
+/* Track (background) */
+::-webkit-scrollbar-track {
+  background: transparent;
+  /* Make it transparent */
+}
+
+/* Handle (thumb) */
+::-webkit-scrollbar-thumb {
+  background: transparent;
+  /* Set a semi-transparent color */
+  border-radius: 0px;
+  /* Rounded thumb */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: transparent;
+  /* Make it slightly more opaque on hover */
+}
+
+.home-background-color {
+  background-color: #1ce476b8;
+}
+
+.home-card {
+  max-width: 25%;
+  margin: 1%;
+  cursor: pointer;
+  border-radius: 15px !important;
+  transition: all 0.2s ease-out;
+
+}
+
+.home-card:hover {
+  box-shadow: 0 0 4em 0px rgba(0, 0, 0, 0.4) !important;
+  transform: scale(1.01);
+}
+
+.home-card:active {
+  transform: scale(1.01) translateY(0.2rem);
+}
+
+.card-header-title {
+  font-weight: bold;
+  font-size: 1.2rem;
+  /* Adjust the font size as needed */
+}
+
+.glimp-card {
+  width: 376px;
+  cursor: pointer;
+  border-radius: 15px !important;
+  transition: all 0.2s ease-out;
+  text-align: center;
+}
+
+.glimp-card:hover {
+  box-shadow: 0 0 4em 0px rgba(177, 9, 243, 0.4) !important;
+  transform: scale(1.01);
+}

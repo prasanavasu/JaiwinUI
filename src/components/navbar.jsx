@@ -25,7 +25,7 @@ function JaiNavbar() {
   };
 
   return (
-    <AppBar position="static" sx={{backgroundColor:"#ff603eb8"}}>
+    <AppBar position="static" sx={{backgroundColor:"#1ce476b8"}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
