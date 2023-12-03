@@ -1,0 +1,82 @@
+body{
+    color:#fff
+  }
+  .right_conatct_social_icon{
+       background: linear-gradient(to top right, #1325e8 -5%, #8f10b7 100%);
+  }
+  .contact_us{
+      background-color: "#e3e3e3";
+      padding: 120px 0px;
+  }
+  
+  .contact_inner{
+      background-color: #fff;
+      position: relative;
+      box-shadow: 20px 22px 44px #cccc;
+      border-radius: 25px;
+  }
+
+  .right_conatct_social_icon{
+      height: 100%;
+  }
+  
+  .contact_field h3{
+     color: #000;
+      font-size: 40px;
+      letter-spacing: 1px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      margin: 25px
+  }
+  .contact_field p{
+      color: #000;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 1px;
+      margin: 25px
+  }
+
+  .contact_info_sec {
+      position: fixed;
+      background-color: #2d2d2d;
+      right: 1px;
+      top: 18%;
+      height: 340px;
+      width: 340px;
+      padding: 40px;
+      border-radius: 25px 0 0 25px;
+  }
+  .contact_info_sec h4{
+      letter-spacing: 1px;
+      padding-bottom: 15px;
+  }
+  
+  .info_single{
+      margin: 20px 0px;
+  }
+  .info_single i{
+      margin-right: 15px;
+  }
+  .info_single span{
+      font-size: 14px;
+      letter-spacing: 1px;
+      color: white;
+      margin-left: 13px;
+  }
+  
+  .map_sec{
+      padding: 50px 0px;
+  }
+  .map_inner h4, .map_inner p{
+      color: #000;
+      text-align: center
+  }
+  .map_inner p{
+      font-size: 13px;
+  }
+  .map_bind{
+     margin-top: 50px;
+      border-radius: 20px;
+      overflow: hidden;
+  }
+

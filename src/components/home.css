@@ -31,7 +31,7 @@
 }
 
 .home-background-color {
-  background-color: #1ce476b8;
+  background-color: #9b00ff;
 }
 
 .home-card {
@@ -67,6 +67,19 @@
 }
 
 .glimp-card:hover {
-  box-shadow: 0 0 4em 0px rgba(177, 9, 243, 0.4) !important;
+  box-shadow: 0 0 1.5em 0px rgba(177, 9, 243, 0.4) !important;
   transform: scale(1.01);
 }
+
+.welcome-card {
+  max-width: 25%;
+  margin: 1%;
+  border-radius: 15px !important;
+}
+
+.enquiry-detail{
+  margin: auto;
+  max-width: 18.5% !important;
+  
+}
+

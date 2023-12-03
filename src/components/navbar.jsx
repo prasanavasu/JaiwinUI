@@ -2,30 +2,24 @@ import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
+import { Link as RouterLink } from 'react-router-dom';
 
-const pages = ['Home','About US', 'Contact us', 'Products'];
+const pages = [
+  { name: 'Home', href: '/' },
+  { name: 'About Us', href: '/about' },
+  { name: 'Contact Us', href: '/contact' },
+  { name: 'Products', href: '/products' }
+];
 
 function JaiNavbar() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
 
   return (
-    <AppBar position="static" sx={{backgroundColor:"#1ce476b8"}}>
+    <AppBar position="static" sx={{ backgroundColor: "#07241c" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -46,20 +40,11 @@ function JaiNavbar() {
             JAIWIN
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none',fontSize:"15px", fontWeight:"bold"  } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none', fontSize: "15px", fontWeight: "bold" } }}>
+
             <Menu
               id="menu-appbar"
-              anchorEl={anchorElNav}
+
               anchorOrigin={{
                 vertical: 'bottom',
                 horizontal: 'left',
@@ -69,15 +54,15 @@ function JaiNavbar() {
                 vertical: 'top',
                 horizontal: 'left',
               }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
               sx={{
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+              {pages.map((page, index) => (
+
+                <MenuItem key={index} href={page.href}>
+                  <Typography textAlign="center">{page.name}</Typography>
+
                 </MenuItem>
               ))}
             </Menu>
@@ -102,13 +87,14 @@ function JaiNavbar() {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }} margin='auto'
             justifyContent='center'>
-            {pages.map((page) => (
+
+            {pages.map((page, index) => (
               <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 1, color: 'white', display: 'block', fontSize:"15px", fontWeight:"bold" }}
+                key={index}
+                component={RouterLink} to={page.href}
+                sx={{ my: 1, color: 'white', display: 'block', fontSize: "15px", fontWeight: "bold" }}
               >
-                {page}
+                  {page.name}
               </Button>
             ))}
           </Box>

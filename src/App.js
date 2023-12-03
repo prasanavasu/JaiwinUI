@@ -1,10 +1,12 @@
 import './App.css';
 import {Routes,Route} from "react-router-dom";
-import LetterPad from './components/admin/letterpad/letterpad';
-import Login from './components/login';
-import Home from './components/admin/home';
 import JaiwinHome from './components/home';
-import Billing from './components/admin/billing/billing';
+import JaiwinAbout from './components/about';
+import JaiwinContact from './components/contact';
+import JaiwinPrivacy from './components/privacy';
+import JaiwinTerm from './components/term';
+import JaiwinProduct from './components/products';
+import JaiwinReturnPrivacy from './components/returnprivacy';
 
 function App() {
   return (
@@ -13,11 +15,13 @@ function App() {
         
     </div>
     <Routes>
-        <Route path='/AJE' element={<Home />} />
         <Route path='/' element={<JaiwinHome />} />
-        <Route path='/AJE/login' element={<Login />} />
-        <Route path='/AJE/billing' element={<Billing />} />
-        <Route path='/AJE/letterpad' element={<LetterPad />} />
+        <Route path='/about' element={<JaiwinAbout />} />
+        <Route path='/contact' element={<JaiwinContact />} />
+        <Route path='/products' element={<JaiwinProduct />} />
+        <Route path='/terms' element={<JaiwinTerm />} />
+        <Route path='/privacy' element={<JaiwinPrivacy />} />
+        <Route path='/refund-policy' element={<JaiwinReturnPrivacy />} />
       </Routes></>
     
   );

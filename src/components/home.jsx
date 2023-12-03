@@ -1,14 +1,37 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft, faChevronRight, faUserTie, faBuilding, faBriefcase, faUserFriends, faShoppingCart, faIdCard, faBalanceScale, faDollarSign } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight, faUserTie, faBuilding, faBriefcase, faUserFriends, faShoppingCart, faIdCard, faBalanceScale, faDollarSign, faMapMarkerAlt, faMobileAlt, faEnvelope, faGlobe } from '@fortawesome/free-solid-svg-icons';
 import JaiNavbar from './navbar';
-import { Box, Typography, Card, CardActions, CardContent, CardHeader, CardMedia, Button, Paper, Avatar, Grid, Input, TextField, FormControl } from '@mui/material';
+import { Box, Typography, Card, CardActions, CardContent, CardMedia, Button, Paper, Grid, Link } from '@mui/material';
 import './home.css'
+import enquiry from '../enquiry.jpg'
+import home from '../home.jpg'
+import ColorInversionFooter from './footer'
+import Mission from './mission';
+import Enquiry from './enquiry';
 
+import dishwash from '../products/dishwash.jpg'
+import liquidhand from '../products/liquid-hand-wash.jpg'
+import perfumedphenyl from '../products/perfumed-phenyl.jpg'
+import liquiddetergent from '../products/premium-liquid-detergent.jpg'
+import disposalnapkin from '../products/sanitary-napkin-disposal-machine.jpg'
+import vendingnapkin from '../products/sanitary-napkin-vending-machine.jpg'
+import toiletcleaner from '../products/toilet-cleaner.jpg'
+import whitephenyl from '../products/white-phenyl.jpg'
 
 function JaiwinHome() {
 
-  const cards = [{ "name": "Product1" }, { "name": "Product2" }, { "name": "Product3" }, { "name": "Product4" }, { "name": "Product5" }, { "name": "Product6" }, { "name": "Product7" }, { "name": "Product8" }, { "name": "Product9" }, { "name": "Product10" }];
+  const cards = [
+    { "name": "Dishwash", "src": dishwash,  "link": "" },
+    { "name": "Liquid Hand Wash", "src": liquidhand,  "link": "" },
+    { "name": "Perfumed Phenyl", "src": perfumedphenyl,  "link": "" },
+    { "name": "Liquid Detergent", "src": liquiddetergent,  "link": "" },
+    { "name": "Sanitary Napkin Disposal Machine", "src": disposalnapkin,  "link": "" },
+    { "name": "Sanitary Napkin Vending Machine", "src": vendingnapkin,  "link": "" },
+    { "name": "Toilet Cleaner", "src": toiletcleaner,  "link": "" },
+    { "name": "White Phenyl", "src": whitephenyl,  "link": "" }
+
+];
   const glimpse = [{ "logo": faUserTie, "title": "Name of CEO", "name": "Mr. Venkatraman R" },
   { "logo": faBuilding, "title": "Year of Establishment", "name": "2019" },
   { "logo": faBriefcase, "title": "Nature of Business", "name": "Manufacturers, Wholesaler, Trader" },
@@ -18,6 +41,7 @@ function JaiwinHome() {
   { "logo": faDollarSign, "title": "Annual Turnover", "name": "Rs. 0.5 to 2.5 Crore Approx" },
   { "logo": faBalanceScale, "title": "Legal Status of Firm", "name": "Individual (Sole proprietorship)" }
   ]
+
   const containerRef = useRef(null);
   const cardWidth = 500; // Adjust the card width based on your design
   const [isLeftArrowVisible, setIsLeftArrowVisible] = useState(false);
@@ -69,46 +93,11 @@ function JaiwinHome() {
         sx={{
           p: 2,
           height: "600px",
-          backgroundImage: 'linear-gradient(0deg, rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url("https://assets.nicepagecdn.com/11a8ddce/3667110/images/pexels-sevenstorm-juhaszimrus-425160.jpg")'
+          backgroundImage: `linear-gradient(0deg, rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url(${home})`,
+          backgroundSize: "cover"
         }}>
       </Box>
-      <Box className="Section" my={1}
-        sx={{
-          
-          backgroundColor: '#007ae51f'
 
-        }}
-      >
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{
-          width: '70%', maxWidth: '100%', display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '100%',
-          p: 5,
-        }}>
-          <Grid className='home-card'>
-            <img src='https://assets.nicepagecdn.com/11a8ddce/3667110/images/pexels-sevenstorm-juhaszimrus-425160.jpg' alt="About" style={{
-              maxWidth: "100%",
-              width: "auto",
-              height: "auto",
-              borderRadius: "15px"
-            }} />
-          </Grid>
-          <Grid item xs={6}>
-            <Typography variant='h4' align='center'>Welcome to our Website
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-
-              A wide variety of hygienic toiletries were supplied and traded by Jaiwin Enterprises. Sanitary Pads, Diapers, Phenyls, Sanitary Napkin Vending Machines, and many more items are among the things we sell. We also provide maintenance services for the machines we sell.
-
-              Our ability to create goods that efficiently and effectively meet every need sets us apart from the competition. We prioritise product quality and prompt service to provide complete client satisfaction. Simple indigenous technology that is readily available, adaptable, affordable, and dependable powers our business. This technology was made possible by our enthusiasm for innovation and dedication to research and development.
-
-              Our business upholds the motto "honesty, quality, and services first" and takes every contract it signs very seriously.
-            </Typography>
-            <Button variant="outlined" href="#outlined-buttons" color="primary" className='my-3'>Read More</Button>
-          </Grid>
-        </Grid>
-      </Box>
       <Box
         className="Section"
 
@@ -149,19 +138,16 @@ function JaiwinHome() {
                     <CardMedia
                       component="div"
                       sx={{
-                        // 16:9
                         pt: '56.25%',
+                        height:"inherit"
                       }}
-                      image="https://source.unsplash.com/random?wallpapers"
+                      image={card.src}
                     />
                     <CardContent sx={{ flexGrow: 1 }}>
-                      <Typography gutterBottom variant="h5" component="h2">
+                      <Typography gutterBottom variant="h6" >
                         {card.name}
                       </Typography>
-                      <Typography>
-                        This is a media card. You can use this section to describe the
-                        content.
-                      </Typography>
+                      
                     </CardContent>
                     <CardActions>
                       <Button size="small">View More</Button>
@@ -175,76 +161,44 @@ function JaiwinHome() {
         </div>
       </Box>
 
-      <Box className="Section home-background-color " justifyContent="center"
+
+      <Box className="Section"
         sx={{
+
+          backgroundColor: '#f1abff5c'
+
+        }}
+      >
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{
+          width: '70%', maxWidth: '100%', display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100%',
           p: 5,
-
-          display: "flex",
         }}>
-        <Card className='home-card'>
-          <CardHeader
-            avatar={
-              <Avatar aria-label="icon">
-                <img
-                  src="https://tuning-mania.com/pub/media/wysiwyg/mission-icon.png"
-                  alt="Mission Icon"
-                  width="40px"
-                  height="40px"
-                />
-              </Avatar>
-            }
-            title={<span className="card-header-title">Mission</span>}
-          />
-          <CardContent>
-            <Typography variant="body2" color="textSecondary" component="p">
-              Our ability to create goods that efficiently and effectively meet every need sets us apart from the competition. We prioritise product quality and prompt service to provide complete client satisfaction. Simple indigenous technology that is readily available, adaptable, affordable, and dependable powers our business.
+          <Grid className='welcome-card'>
+            <img src='https://assets.nicepagecdn.com/11a8ddce/3667110/images/pexels-sevenstorm-juhaszimrus-425160.jpg' alt="About" style={{
+              width: "125%",
+              height: "450px",
+              borderRadius: "15px"
+            }} />
+          </Grid>
+          <Grid item xs={6} sx={{ p: 3, m: 5 }}>
+            <Typography variant='h4' align='center'>Welcome to our Website
             </Typography>
-          </CardContent>
-        </Card>
+            <Typography variant="body2" color="textSecondary" component="p" sx={{ m: 5 }}>
 
-        <Card className='home-card'>
-          <CardHeader
-            avatar={
-              <Avatar aria-label="icon">
-                <img
-                  src="https://tuning-mania.com/pub/media/wysiwyg/vision-icon.png"
-                  alt="Vision Icon"
-                  width="40px"
-                  height="40px"
-                />
-              </Avatar>
-            }
-            title={<span className="card-header-title">Vision</span>}
-          />
-          <CardContent>
-            <Typography variant="body2" color="textSecondary" component="p">
-              Our business upholds the motto "honesty, quality, and services first" and takes every contract it signs very seriously. Our well-equipped production facility, which is updated with the newest technology, is where we make our products. Additionally, to safeguard our items from harm of any type, we have a sizable storage facility.
+              A wide variety of hygienic toiletries were supplied and traded by Jaiwin Enterprises. Sanitary Pads, Diapers, Phenyls, Sanitary Napkin Vending Machines, and many more items are among the things we sell. We also provide maintenance services for the machines we sell.
+
+              Our ability to create goods that efficiently and effectively meet every need sets us apart from the competition. We prioritise product quality and prompt service to provide complete client satisfaction. Simple indigenous technology that is readily available, adaptable, affordable, and dependable powers our business. This technology was made possible by our enthusiasm for innovation and dedication to research and development.
+
+              Our business upholds the motto "honesty, quality, and services first" and takes every contract it signs very seriously.
             </Typography>
-          </CardContent>
-        </Card>
-
-        <Card className='home-card'>
-          <CardHeader
-
-            avatar={
-              <Avatar aria-label="icon">
-                <img
-                  src="https://tuning-mania.com/pub/media/wysiwyg/values-icon.png"
-                  alt="Values Icon"
-                  width="40px"
-                  height="40px"
-                />
-              </Avatar>
-            }
-            title={<span className="card-header-title">Our Excellence</span>}
-          />
-          <CardContent>
-            <Typography variant="body2" color="textSecondary" component="p">
-              Programs to raise awareness of basic hygiene concerns, from the choice of napkins to correct disposal, are being implemented in organisations including schools, colleges, and businesses.For self-examination of vaginal health, utilise the vaginal inflammation testing card.            </Typography>
-          </CardContent>
-        </Card>
+            <Button variant="outlined" href="#outlined-buttons" color="primary" className='mx-5'>Read More</Button>
+          </Grid>
+        </Grid>
       </Box>
-
+      <Mission></Mission>
       <Box className="Section"
         sx={{
           p: 3,
@@ -279,48 +233,104 @@ function JaiwinHome() {
         </Grid>
 
       </Box>
-      {/* <Box className="Section"
-        sx={{
 
-          backgroundColor: '#911ad92b'
+      <Box className="Section" justifyContent="center"
+        sx={{ p: 5, backgroundColor: '#b6c1bb29', display: "flex", flexDirection: 'column', alignItems: 'center' }}>
 
-        }}
-      >
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{
-          width: '70%', maxWidth: '100%',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '100%',
-          p: 5,
-        }}>
-          <Grid className='home-card'>
-            <img src='https://assets.nicepagecdn.com/11a8ddce/3667110/images/pexels-sevenstorm-juhaszimrus-425160.jpg' alt="About" style={{
+        <Card sx={{ display: 'flex', maxWidth: "max-content", width: "75%" }} className='welcome-card'>
+          <CardMedia
+            component="img"
+            sx={{
               maxWidth: "100%",
-              width: "auto",
-              height: "auto",
-              borderRadius: "15px"
-            }} />
+              width: "48%",
+              height: "400px",
+              borderRadius: "15px",
+
+            }}
+            image={enquiry}
+            alt="Enquiry"
+          />
+          <Enquiry title="Quick Enquiry"></Enquiry>
+
+        </Card>
+        <Grid container spacing={2} justifyContent="center">
+          <Grid item xs={12} sm={6} md={3} className='enquiry-detail'>
+            <Paper variant="elevation" >
+              <Box textAlign="center" p={2}>
+                <Typography component="p" variant="h4" >
+                  <FontAwesomeIcon icon={faMapMarkerAlt} sx={{ width: 70, margin: '0 auto' }} />
+                </Typography>
+
+                <Typography component="p">
+                  Location
+                </Typography>
+                <Typography color="text.secondary">
+                  Chennai
+                </Typography>
+              </Box>
+            </Paper>
           </Grid>
-          <Grid>
-            <Typography variant='h4' align='center' sx={{ color: "#911ad9" }}>Quick Enquiry
-            </Typography>
+          <Grid item xs={12} sm={6} md={3} className='enquiry-detail'>
+            <Paper variant="elevation">
+              <Box textAlign="center" p={2}>
+                <Typography component="p" variant="h4" >
+                  <FontAwesomeIcon icon={faMobileAlt} sx={{ width: 70, margin: '0 auto' }} />
+                </Typography>
 
-            <FormControl>
-              <Input placeholder="Enter your Name"  />
-              <Input placeholder="Email" />
-            </FormControl>
-            <FormControl>
-              <Input placeholder="Country" />
-              <Input placeholder="Mobile Number" />
-            </FormControl>
-            <FormControl>
-              <TextField placeholder="Message for us" />
-            </FormControl>
-          <Button variant="outlined" href="#outlined-buttons" color="primary" className='my-3'>Enquiry</Button>
+                <Typography component="p">
+                  Mobile
+                </Typography>
+                <Typography color="text.secondary">
+
+                  <Link href="tel:+91-9894832012" underline="hover">
+                    +91-9894832012
+                  </Link>
+                </Typography>
+              </Box>
+            </Paper>
+          </Grid>
+          <Grid item xs={12} sm={6} md={3} className='enquiry-detail'>
+
+            <Paper variant="elevation" >
+              <Box textAlign="center" p={2}>
+                <Typography component="p" variant="h4" >
+                  <FontAwesomeIcon icon={faEnvelope} sx={{ width: 70, margin: '0 auto' }} />
+                </Typography>
+
+                <Typography component="p">
+                  Email
+                </Typography>
+                <Typography color="text.secondary">
+
+                  <Link href="mailto:jaiwinenterprises@gmail.com" underline="hover">
+                    jaiwinenterprises@gmail.com
+                  </Link>
+                </Typography>
+              </Box>
+            </Paper>
+          </Grid>
+          <Grid item xs={12} sm={6} md={3} className='enquiry-detail'>
+            <Paper variant="elevation" >
+              <Box textAlign="center" p={2}>
+                <Typography component="p" variant="h4">
+                  <FontAwesomeIcon icon={faGlobe} sx={{ width: 70, margin: '0 auto' }} />
+                </Typography>
+
+                <Typography component="p">
+                  Web
+                </Typography>
+                <Typography color="text.secondary" sx={{ flex: 1 }}>
+                  <Link href="http://www.jaiwin.co.in" target="_blank" underline="hover">
+                    Jaiwin Enterprises
+                  </Link>
+                </Typography>
+              </Box>
+            </Paper>
+          </Grid>
         </Grid>
-      </Grid>
-    </Box > */}
 
+      </Box >
+      <ColorInversionFooter/>
     </>
   );
 }
