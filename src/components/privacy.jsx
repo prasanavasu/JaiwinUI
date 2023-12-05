@@ -54,7 +54,6 @@ function JaiwinPrivacy() {
     <>
       <JaiNavbar />
 
-      <Grid sx={{ m: 3 }}>
         <Grid >
           <Grid>
             <img src={privacy} width="100%" height="400" alt="Lobby" />
@@ -94,7 +93,6 @@ function JaiwinPrivacy() {
             </Typography>
           </Grid>
         </Grid>
-      </Grid >
       <ColorInversionFooter />
     </>
   );

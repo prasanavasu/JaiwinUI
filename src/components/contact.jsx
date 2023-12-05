@@ -2,7 +2,7 @@ import React from 'react';
 import JaiNavbar from './navbar';
 import ColorInversionFooter from './footer'
 import './contact.css'
-import { Box, Grid, Container, Link } from '@mui/material';
+import { Box, Grid, Container, Link, Breadcrumbs, Typography } from '@mui/material';
 import Enquiry from './enquiry';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt, faMobileAlt, faEnvelope } from '@fortawesome/free-solid-svg-icons';
@@ -13,11 +13,16 @@ function JaiwinContact() {
   return (
     <>
       <JaiNavbar />
-
+      <Breadcrumbs aria-label="breadcrumb" sx={{ marginTop: 10, marginLeft: 10 }}>
+        <Link underline="hover" color="inherit" href="/">
+          Home
+        </Link>
+        <Typography color="text.primary">Contact US</Typography>
+      </Breadcrumbs>
       <Box className="Section contact_us">
         <Container >
           <Grid container justifyContent="center">
-          <Grid item xs={12} md={4} lg={3} sx={{marginBottom:10}}>
+            <Grid item xs={12} md={4} lg={3} sx={{ marginBottom: 10 }}>
               <div className="contact_info_sec">
                 <h4>Contact Info</h4>
                 <div className="d-flex info_single align-items-center">
@@ -53,13 +58,13 @@ function JaiwinContact() {
 
               </div>
             </Grid>
-            
+
           </Grid>
 
         </Container>
         <Container className=" map_sec">
           <Grid container justifyContent="center">
-            <Grid item xs={12} md={10} lg={8} sx={{p:3}}>
+            <Grid item xs={12} md={10} lg={8} sx={{ p: 3 }}>
               <div className="map_inner">
                 <h4>Find Us on Google Map</h4>
                 <div className="map_bind">

@@ -101,7 +101,7 @@ function JaiwinTerm() {
     <>
       <JaiNavbar />
 
-      <Grid sx={{ m: 3 }}>
+     
         <Grid >
           <Grid>
             <img src={termsImage} width="100%" height="400" alt="Lobby" />
@@ -199,7 +199,7 @@ function JaiwinTerm() {
             </Typography>
           </Grid>
         </Grid>
-      </Grid >
+      
       <ColorInversionFooter />
     </>
   );

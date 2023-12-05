@@ -1,6 +1,6 @@
 import React from 'react';
 import JaiNavbar from './navbar';
-import { Typography, Grid } from '@mui/material';
+import { Typography, Grid,Breadcrumbs, Link } from '@mui/material';
 import ColorInversionFooter from './footer'
 import Mission from './mission';
 
@@ -9,7 +9,13 @@ function JaiwinAbout() {
   return (
     <>
       <JaiNavbar />
-      <Grid container rowSpacing={1} columnSpacing={1} sx={{marginTop:10 }}>
+      <Breadcrumbs aria-label="breadcrumb" sx={{marginTop:10, mx:3 }}>
+          <Link underline="hover" color="inherit" href="/">
+            Home
+          </Link>
+          <Typography color="text.primary">About US</Typography>
+        </Breadcrumbs>
+      <Grid container rowSpacing={1} columnSpacing={1} >
         <Grid item xs={12} md={5} lg={5} sx={{ m: 2 }}>
         <img src="https://digitalupgrade.com/images/lobbyimage_1.jpg" alt="Lobby" style={{ width: '100%', height: '100%' }} />
         </Grid>

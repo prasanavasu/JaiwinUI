@@ -1,0 +1,12 @@
+.product-card{
+    box-shadow: 1px 0 1.5em 1px rgba(132, 120, 138, 0.4) !important;
+    transform: scale(1.01);
+    width: 300px;
+    height: 100%;
+}
+
+.product-card:hover {
+    box-shadow: 0 0 1.5em 0px rgba(87, 86, 88, 0.685) !important;
+    transform: scale(1.01);
+  }
+  

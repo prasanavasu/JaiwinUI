@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight, faUserTie, faBuilding, faBriefcase, faUserFriends, faShoppingCart, faIdCard, faBalanceScale, faDollarSign, faMapMarkerAlt, faMobileAlt, faEnvelope, faGlobe } from '@fortawesome/free-solid-svg-icons';
 import JaiNavbar from './navbar';
-import { Box, Typography, Card, CardActions, CardContent, CardMedia, Button, Paper, Grid, Link, Container, useMediaQuery } from '@mui/material';
+import { Box, Typography, Card, CardContent, CardMedia, Paper, Grid, Link, Container, useMediaQuery } from '@mui/material';
 import './home.css'
 import enquiry from '../enquiry.jpg'
 import home from '../home.jpg'
@@ -22,14 +22,14 @@ import whitephenyl from '../products/white-phenyl.jpg'
 function JaiwinHome() {
 
   const cards = [
-    { "name": "Dishwash", "src": dishwash, "link": "" },
-    { "name": "Liquid Hand Wash", "src": liquidhand, "link": "" },
-    { "name": "Perfumed Phenyl", "src": perfumedphenyl, "link": "" },
-    { "name": "Liquid Detergent", "src": liquiddetergent, "link": "" },
-    { "name": "Sanitary Napkin Disposal Machine", "src": disposalnapkin, "link": "" },
-    { "name": "Sanitary Napkin Vending Machine", "src": vendingnapkin, "link": "" },
-    { "name": "Toilet Cleaner", "src": toiletcleaner, "link": "" },
-    { "name": "White Phenyl", "src": whitephenyl, "link": "" }
+    { "name": "Dishwash", "src": dishwash},
+    { "name": "Liquid Hand Wash", "src": liquidhand},
+    { "name": "Perfumed Phenyl", "src": perfumedphenyl},
+    { "name": "Liquid Detergent", "src": liquiddetergent},
+    { "name": "Sanitary Napkin Disposal Machine", "src": disposalnapkin},
+    { "name": "Sanitary Napkin Vending Machine", "src": vendingnapkin},
+    { "name": "Toilet Cleaner", "src": toiletcleaner},
+    { "name": "White Phenyl", "src": whitephenyl}
 
   ];
   const glimpse = [{ "logo": faUserTie, "title": "Name of CEO", "name": "Mr. Venkatraman R" },
@@ -141,14 +141,12 @@ function JaiwinHome() {
                       image={card.src}
                     />
                     <CardContent sx={{ flexGrow: 1 }}>
-                      <Typography gutterBottom variant="h6" >
+                      <Typography gutterBottom variant="h5" >
                         {card.name}
                       </Typography>
 
                     </CardContent>
-                    <CardActions>
-                      <Button size="small">View More</Button>
-                    </CardActions>
+                    
                   </Card>
                 </Paper>
               ))}
