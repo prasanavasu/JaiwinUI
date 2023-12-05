@@ -76,9 +76,13 @@
   border-radius: 15px !important;
 }
 
-.enquiry-detail{
+.enquiry-detail {
   margin: auto;
-  max-width: 18.5% !important;
-  
+  width: 35%;
+  height: "200px";
+  align-items: center;
+  text-align: center;
+  word-wrap: break-word;
 }
+
 

@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight, faUserTie, faBuilding, faBriefcase, faUserFriends, faShoppingCart, faIdCard, faBalanceScale, faDollarSign, faMapMarkerAlt, faMobileAlt, faEnvelope, faGlobe } from '@fortawesome/free-solid-svg-icons';
 import JaiNavbar from './navbar';
-import { Box, Typography, Card, CardActions, CardContent, CardMedia, Button, Paper, Grid, Link, Container,useMediaQuery } from '@mui/material';
+import { Box, Typography, Card, CardActions, CardContent, CardMedia, Button, Paper, Grid, Link, Container, useMediaQuery } from '@mui/material';
 import './home.css'
 import enquiry from '../enquiry.jpg'
 import home from '../home.jpg'
@@ -85,16 +85,16 @@ function JaiwinHome() {
     };
   }, []);
 
-  const isSmallScreen = useMediaQuery('(max-width:770px)');
+  const isSmallScreen = useMediaQuery('(max-width:450px)');
   return (
     <>
 
       <JaiNavbar />
       <Box className="Section">
-          <img src={home} alt="About" style={{
-              width: "100%",
-              height: isSmallScreen ? '300px' : 'auto',
-            }} />  
+        <img src={home} alt="About" style={{
+          width: "100%",
+          height: isSmallScreen ? '300px' : 'auto',
+        }} />
       </Box>
 
       <Box
@@ -210,101 +210,106 @@ function JaiwinHome() {
         </Container>
 
       </Box>
-      
+
       <Box className="Section" justifyContent="center"
         sx={{ backgroundColor: '#b6c1bb29', display: "flex", flexDirection: 'column', alignItems: 'center' }}>
 
-        <Card sx={{ display: 'flex', maxWidth: "max-content", width: "75%" }} className='welcome-card'>
-          <CardMedia
-            component="img"
-            sx={{
-              maxWidth: "100%",
-              width: "48%",
-              height: "400px",
-              borderRadius: "15px",
+        <Card sx={{ display: 'flex', maxWidth: "max-content", m: isSmallScreen ? 2 : 5, }} className='welcome-card'>
+          <Grid container spacing={4} >
+            <Grid item xs={12} sm={12} md={6}>
+              <CardMedia
+                component="img"
+                sx={{
+                  maxWidth: "100%",
+                  // width: "48%",
+                  height: "400px",
+                  borderRadius: "15px",
 
-            }}
-            image={enquiry}
-            alt="Enquiry"
-          />
-          <Enquiry title="Quick Enquiry"></Enquiry>
-
+                }}
+                image={enquiry}
+                alt="Enquiry"
+              />
+            </Grid>
+            <Grid item xs={12} sm={12} md={6}>
+              <Enquiry title="Quick Enquiry"></Enquiry>
+            </Grid>
+          </Grid>
         </Card>
-        <Grid container spacing={2} justifyContent="center">
-          <Grid item xs={12} sm={6} md={3} className='enquiry-detail'>
-            <Paper variant="elevation" >
-              <Box textAlign="center" p={2}>
-                <Typography component="p" variant="h4" >
-                  <FontAwesomeIcon icon={faMapMarkerAlt} sx={{ width: 70, margin: '0 auto' }} />
-                </Typography>
+        <Container sx={{ my: 2 }}>
+          <Grid container justifyContent="center">
+            <Grid item sx={{ m: 1 }} sm={12} xs={12} md={4} lg={3} className='enquiry-detail'>
 
-                <Typography component="p">
-                  Location
-                </Typography>
-                <Typography color="text.secondary">
-                  Chennai
-                </Typography>
-              </Box>
-            </Paper>
+              <Card >
+
+                <CardContent>
+                  <Typography variant="span" sx={{ fontSize: "50px" }}>
+                    <FontAwesomeIcon icon={faMapMarkerAlt} sx={{ width: 70, margin: '0 auto' }} />
+                  </Typography><br></br>
+                  <Typography variant="span" color="textSecondary">
+                    Location<br></br>
+                  </Typography>
+                  <Typography variant='p' sx={{ fontWeight: "bolder" }}>
+                    Chennai
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item sx={{ m: 1 }} sm={12} xs={12} md={4} lg={3} className='enquiry-detail'>
+              <Card >
+
+                <CardContent>
+                  <Typography variant="span" sx={{ fontSize: "50px" }}>
+                    <FontAwesomeIcon icon={faMobileAlt} sx={{ width: 70, margin: '0 auto' }} />
+                  </Typography><br></br>
+                  <Typography variant="span" color="textSecondary">
+                    Mobile<br></br>
+                  </Typography>
+                  <Typography variant='p' sx={{ fontWeight: "bolder" }}>
+                    <Link href="tel:+91-9894832012" underline="hover">
+                      +91-9894832012
+                    </Link>
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item sx={{ m: 1 }} sm={12} xs={12} md={4} lg={3} className='enquiry-detail'>
+
+              <Card >
+                <CardContent>
+                  <Typography variant="span" sx={{ fontSize: "50px" }}>
+                    <FontAwesomeIcon icon={faGlobe} sx={{ width: 70, margin: '0 auto' }} />
+                  </Typography><br></br>
+                  <Typography variant="span" color="textSecondary">
+                    Web<br></br>
+                  </Typography>
+                  <Typography variant='p' sx={{ fontWeight: "bolder" }}>
+                    <Link href="https://www.jaiwin.co.in" target="_blank" underline="hover">
+                      Jaiwin Enterprises
+                    </Link>
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item sx={{ m: 1 }} sm={12} xs={12} md={4} lg={3} className='enquiry-detail'>
+              <Card >
+                <CardContent>
+                  <Typography variant="span" sx={{ fontSize: "50px" }}>
+                    <FontAwesomeIcon icon={faEnvelope} sx={{ width: 70, margin: '0 auto' }} />
+                  </Typography><br></br>
+                  <Typography variant="span" color="textSecondary">
+                    Email<br></br>
+                  </Typography>
+                  <Typography variant='p' sx={{ fontWeight: "bolder" }}>
+                    <Link href="mailto:jaiwinenterprises@gmail.com" underline="hover">
+                      jaiwinenterprises@gmail.com
+                    </Link>
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+
           </Grid>
-          <Grid item xs={12} sm={6} md={3} className='enquiry-detail'>
-            <Paper variant="elevation">
-              <Box textAlign="center" p={2}>
-                <Typography component="p" variant="h4" >
-                  <FontAwesomeIcon icon={faMobileAlt} sx={{ width: 70, margin: '0 auto' }} />
-                </Typography>
-
-                <Typography component="p">
-                  Mobile
-                </Typography>
-                <Typography color="text.secondary">
-
-                  <Link href="tel:+91-9894832012" underline="hover">
-                    +91-9894832012
-                  </Link>
-                </Typography>
-              </Box>
-            </Paper>
-          </Grid>
-          <Grid item xs={12} sm={6} md={3} className='enquiry-detail'>
-
-            <Paper variant="elevation" >
-              <Box textAlign="center" p={2}>
-                <Typography component="p" variant="h4" >
-                  <FontAwesomeIcon icon={faEnvelope} sx={{ width: 70, margin: '0 auto' }} />
-                </Typography>
-
-                <Typography component="p">
-                  Email
-                </Typography>
-                <Typography color="text.secondary">
-
-                  <Link href="mailto:jaiwinenterprises@gmail.com" underline="hover">
-                    jaiwinenterprises@gmail.com
-                  </Link>
-                </Typography>
-              </Box>
-            </Paper>
-          </Grid>
-          <Grid item xs={12} sm={6} md={3} className='enquiry-detail'>
-            <Paper variant="elevation" >
-              <Box textAlign="center" p={2}>
-                <Typography component="p" variant="h4">
-                  <FontAwesomeIcon icon={faGlobe} sx={{ width: 70, margin: '0 auto' }} />
-                </Typography>
-
-                <Typography component="p">
-                  Web
-                </Typography>
-                <Typography color="text.secondary" sx={{ flex: 1 }}>
-                  <Link href="http://www.jaiwin.co.in" target="_blank" underline="hover">
-                    Jaiwin Enterprises
-                  </Link>
-                </Typography>
-              </Box>
-            </Paper>
-          </Grid>
-        </Grid>
+        </Container>
 
       </Box >
       <ColorInversionFooter />
