@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight, faUserTie, faBuilding, faBriefcase, faUserFriends, faShoppingCart, faIdCard, faBalanceScale, faDollarSign, faMapMarkerAlt, faMobileAlt, faEnvelope, faGlobe } from '@fortawesome/free-solid-svg-icons';
 import JaiNavbar from './navbar';
-import { Box, Typography, Card, CardActions, CardContent, CardMedia, Button, Paper, Grid, Link } from '@mui/material';
+import { Box, Typography, Card, CardActions, CardContent, CardMedia, Button, Paper, Grid, Link, Container,useMediaQuery } from '@mui/material';
 import './home.css'
 import enquiry from '../enquiry.jpg'
 import home from '../home.jpg'
@@ -85,18 +85,16 @@ function JaiwinHome() {
     };
   }, []);
 
-
+  const isSmallScreen = useMediaQuery('(max-width:770px)');
   return (
     <>
-    
+
       <JaiNavbar />
-      <Box className="Section"
-        sx={{
-          p: 2,
-          height: "600px",
-          backgroundImage: `linear-gradient(0deg, rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url(${home})`,
-          backgroundSize: "cover"
-        }}>
+      <Box className="Section">
+          <img src={home} alt="About" style={{
+              width: "100%",
+              height: isSmallScreen ? '300px' : 'auto',
+            }} />  
       </Box>
 
       <Box
@@ -161,71 +159,60 @@ function JaiwinHome() {
       </Box>
 
 
-      <Box className="Section" sx={{ backgroundColor: '#f1abff5c', p: 5, m: 5 }}>
-
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} columns={16} >
-          <Grid xs className='welcome-card' display="flex" justifyContent="center" alignItems="center">
+      <Box className="Section" sx={{ backgroundColor: '#f1abff5c' }}>
+        <Grid container rowSpacing={1} columnSpacing={1}>
+          <Grid item xs={12} md={5} lg={6} sx={{ mx: 2 }} className='welcome-card' display="flex" justifyContent="center" alignItems="center">
             <img src='https://assets.nicepagecdn.com/11a8ddce/3667110/images/pexels-sevenstorm-juhaszimrus-425160.jpg' alt="About" style={{
               width: "100%",
-              height: "450px",
+              height: "90%",
               borderRadius: "15px"
-            }} />
-          </Grid>
-          <Grid item xs sx={{ p: 3, m: 5 }} display="flex" justifyContent="center" alignItems="center">
-            <Typography variant='h4' align='center' sx={{ color: "black" }}>Welcome to our Website
-              <Typography variant="body2" color="textSecondary" component="p" sx={{ m: 5 }}>
+            }} />          </Grid>
+          <Grid item xs={12} md={6} lg={5} sx={{ m: 2 }}>
+            <Typography variant="h3" >
+              Welcome to our Website</Typography>
+            <Typography sx={{ mx: 2 }}>
+              A wide variety of hygienic toiletries were supplied and traded by Jaiwin Enterprises. Sanitary Pads, Diapers, Phenyls, Sanitary Napkin Vending Machines, and many more items are among the things we sell. We also provide maintenance services for the machines we sell.
 
-                A wide variety of hygienic toiletries were supplied and traded by Jaiwin Enterprises. Sanitary Pads, Diapers, Phenyls, Sanitary Napkin Vending Machines, and many more items are among the things we sell. We also provide maintenance services for the machines we sell.
+              Our ability to create goods that efficiently and effectively meet every need sets us apart from the competition. We prioritise product quality and prompt service to provide complete client satisfaction. Simple indigenous technology that is readily available, adaptable, affordable, and dependable powers our business. This technology was made possible by our enthusiasm for innovation and dedication to research and development.
 
-                Our ability to create goods that efficiently and effectively meet every need sets us apart from the competition. We prioritise product quality and prompt service to provide complete client satisfaction. Simple indigenous technology that is readily available, adaptable, affordable, and dependable powers our business. This technology was made possible by our enthusiasm for innovation and dedication to research and development.
-
-                Our business upholds the motto "honesty, quality, and services first" and takes every contract it signs very seriously.
-              </Typography>
-              <Button variant="outlined" href="/about" color="primary" className='mx-5'>Read More</Button>
-
+              Our business upholds the motto "honesty, quality, and services first" and takes every contract it signs very seriously.
             </Typography>
-
           </Grid>
         </Grid>
       </Box>
       <Mission></Mission>
-      <Box className="Section"
-        sx={{
-          p: 3,
-          m: 3,
+      <Box className="Section" >
+        <Container sx={{ my: 2 }}>
+          <Typography variant='h4' align='center'><span style={{ color: "#5bec9c" }} >GLIMPSE </span>
+            <span style={{ color: "#911ad9" }}>OF OUR COMPANY</span>
+          </Typography>
+          <Grid className='' justifyContent="center" container >
+            {glimpse.map((glim) => (
+              <Grid item sx={{ m: 1 }}>
+                <Card className='glimp-card'>
 
+                  <CardContent>
+                    <Typography variant="span" color="textSecondary" sx={{ fontSize: "50px" }}>
+                      <FontAwesomeIcon icon={glim.logo} sx={{ width: 70, margin: '0 auto' }} />
+                    </Typography><br></br>
+                    <Typography variant="span" color="textSecondary">
+                      {glim.title}<br></br>
+                    </Typography>
+                    <Typography variant='p' color="textSecondary" sx={{ fontWeight: "bolder" }}>
+                      {glim.name}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
 
-        }}
-      >
-        <Typography variant='h4' align='center'><span style={{ color: "#5bec9c" }} >GLIMPSE </span>
-          <span style={{ color: "#911ad9" }}>OF OUR COMPANY</span>
-        </Typography>
-        <Grid className='' justifyContent="center" container>
-          {glimpse.map((glim) => (
-            <Grid item >
-              <Card className='m-3 p-2 glimp-card'>
-
-                <CardContent>
-                  <Typography variant="span" color="textSecondary" sx={{ fontSize: "50px" }}>
-                    <FontAwesomeIcon icon={glim.logo} sx={{ width: 70, margin: '0 auto' }} />
-                  </Typography><br></br>
-                  <Typography variant="span" color="textSecondary">
-                    {glim.title}<br></br>
-                  </Typography>
-                  <Typography variant='p' color="textSecondary" sx={{ fontWeight: "bolder" }}>
-                    {glim.name}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-
-        </Grid>
+          </Grid>
+        </Container>
 
       </Box>
-
+      
       <Box className="Section" justifyContent="center"
-        sx={{ p: 5, backgroundColor: '#b6c1bb29', display: "flex", flexDirection: 'column', alignItems: 'center' }}>
+        sx={{ backgroundColor: '#b6c1bb29', display: "flex", flexDirection: 'column', alignItems: 'center' }}>
 
         <Card sx={{ display: 'flex', maxWidth: "max-content", width: "75%" }} className='welcome-card'>
           <CardMedia
