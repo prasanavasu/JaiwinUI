@@ -35,11 +35,10 @@
 }
 
 .home-card {
-  max-width: 25%;
-  margin: 1%;
   cursor: pointer;
   border-radius: 15px !important;
   transition: all 0.2s ease-out;
+  height: 100%;
 
 }
 

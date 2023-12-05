@@ -95,7 +95,7 @@ const ColorInversionFooter = () => {
             size="sm"
             orientation="horizontal"
             wrap
-            sx={{ flexGrow: 0, '--ListItem-radius': '8px', '--ListItem-gap': '0px', mx: 3 }}
+            sx={{ flexGrow: 0, '--ListItem-radius': '8px', '--ListItem-gap': '0px', }}
           >
             {footerData.footer_product.map((general, index) => (
               <ListItem nested sx={{ width: { xs: '50%', md: 150 } }}>
@@ -112,7 +112,7 @@ const ColorInversionFooter = () => {
             ))}
 
           </List>
-          <Grid sx={{ width: "200px" }}>
+          <Grid sx={{ width: "250px" }}>
 
             <div className="">
               <h4>Contact Info</h4>
@@ -140,14 +140,15 @@ const ColorInversionFooter = () => {
         <Divider sx={{ my: 2 }} />
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
 
-          <Divider orientation="vertical" />
+         
           <IconButton variant="plain">
             <FacebookRoundedIcon />
           </IconButton>
           <IconButton variant="plain">
             <InstagramIcon />
           </IconButton>
-          <Typography sx={{ ml: 'auto', display: { xs: 'none', md: 'flex' } }}
+          <Divider orientation="vertical" />
+          <Typography sx={{ ml: 'auto'}}
           > <IconButton variant="plain">
               <CopyrightIcon />&ensp; Developed & Managed By Jaiwin.
             </IconButton>

@@ -22,16 +22,16 @@ import whitephenyl from '../products/white-phenyl.jpg'
 function JaiwinHome() {
 
   const cards = [
-    { "name": "Dishwash", "src": dishwash,  "link": "" },
-    { "name": "Liquid Hand Wash", "src": liquidhand,  "link": "" },
-    { "name": "Perfumed Phenyl", "src": perfumedphenyl,  "link": "" },
-    { "name": "Liquid Detergent", "src": liquiddetergent,  "link": "" },
-    { "name": "Sanitary Napkin Disposal Machine", "src": disposalnapkin,  "link": "" },
-    { "name": "Sanitary Napkin Vending Machine", "src": vendingnapkin,  "link": "" },
-    { "name": "Toilet Cleaner", "src": toiletcleaner,  "link": "" },
-    { "name": "White Phenyl", "src": whitephenyl,  "link": "" }
+    { "name": "Dishwash", "src": dishwash, "link": "" },
+    { "name": "Liquid Hand Wash", "src": liquidhand, "link": "" },
+    { "name": "Perfumed Phenyl", "src": perfumedphenyl, "link": "" },
+    { "name": "Liquid Detergent", "src": liquiddetergent, "link": "" },
+    { "name": "Sanitary Napkin Disposal Machine", "src": disposalnapkin, "link": "" },
+    { "name": "Sanitary Napkin Vending Machine", "src": vendingnapkin, "link": "" },
+    { "name": "Toilet Cleaner", "src": toiletcleaner, "link": "" },
+    { "name": "White Phenyl", "src": whitephenyl, "link": "" }
 
-];
+  ];
   const glimpse = [{ "logo": faUserTie, "title": "Name of CEO", "name": "Mr. Venkatraman R" },
   { "logo": faBuilding, "title": "Year of Establishment", "name": "2019" },
   { "logo": faBriefcase, "title": "Nature of Business", "name": "Manufacturers, Wholesaler, Trader" },
@@ -88,6 +88,7 @@ function JaiwinHome() {
 
   return (
     <>
+    
       <JaiNavbar />
       <Box className="Section"
         sx={{
@@ -99,10 +100,8 @@ function JaiwinHome() {
       </Box>
 
       <Box
-        className="Section"
-
-      >
-        <div className="m-auto" style={{ width: "70%" }}>
+        className="Section" justifyContent="center" sx={{ m: 2, display: "flex", flexDirection: 'column', alignItems: 'center' }}>
+        <Grid className="m-auto" sx={{ width: "70%" }}>
           <Typography
             component="h1"
             variant="h3"
@@ -139,7 +138,7 @@ function JaiwinHome() {
                       component="div"
                       sx={{
                         pt: '56.25%',
-                        height:"inherit"
+                        height: "inherit"
                       }}
                       image={card.src}
                     />
@@ -147,7 +146,7 @@ function JaiwinHome() {
                       <Typography gutterBottom variant="h6" >
                         {card.name}
                       </Typography>
-                      
+
                     </CardContent>
                     <CardActions>
                       <Button size="small">View More</Button>
@@ -158,43 +157,34 @@ function JaiwinHome() {
             </div>
             <button className='arrow-btn' onClick={scrollRight} style={{ display: isRightArrowVisible ? 'block' : 'none' }}><FontAwesomeIcon icon={faChevronRight} /> </button>
           </div>
-        </div>
+        </Grid>
       </Box>
 
 
-      <Box className="Section"
-        sx={{
+      <Box className="Section" sx={{ backgroundColor: '#f1abff5c', p: 5, m: 5 }}>
 
-          backgroundColor: '#f1abff5c'
-
-        }}
-      >
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{
-          width: '70%', maxWidth: '100%', display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '100%',
-          p: 5,
-        }}>
-          <Grid className='welcome-card'>
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} columns={16} >
+          <Grid xs className='welcome-card' display="flex" justifyContent="center" alignItems="center">
             <img src='https://assets.nicepagecdn.com/11a8ddce/3667110/images/pexels-sevenstorm-juhaszimrus-425160.jpg' alt="About" style={{
-              width: "125%",
+              width: "100%",
               height: "450px",
               borderRadius: "15px"
             }} />
           </Grid>
-          <Grid item xs={6} sx={{ p: 3, m: 5 }}>
-            <Typography variant='h4' align='center'>Welcome to our Website
+          <Grid item xs sx={{ p: 3, m: 5 }} display="flex" justifyContent="center" alignItems="center">
+            <Typography variant='h4' align='center' sx={{ color: "black" }}>Welcome to our Website
+              <Typography variant="body2" color="textSecondary" component="p" sx={{ m: 5 }}>
+
+                A wide variety of hygienic toiletries were supplied and traded by Jaiwin Enterprises. Sanitary Pads, Diapers, Phenyls, Sanitary Napkin Vending Machines, and many more items are among the things we sell. We also provide maintenance services for the machines we sell.
+
+                Our ability to create goods that efficiently and effectively meet every need sets us apart from the competition. We prioritise product quality and prompt service to provide complete client satisfaction. Simple indigenous technology that is readily available, adaptable, affordable, and dependable powers our business. This technology was made possible by our enthusiasm for innovation and dedication to research and development.
+
+                Our business upholds the motto "honesty, quality, and services first" and takes every contract it signs very seriously.
+              </Typography>
+              <Button variant="outlined" href="/about" color="primary" className='mx-5'>Read More</Button>
+
             </Typography>
-            <Typography variant="body2" color="textSecondary" component="p" sx={{ m: 5 }}>
 
-              A wide variety of hygienic toiletries were supplied and traded by Jaiwin Enterprises. Sanitary Pads, Diapers, Phenyls, Sanitary Napkin Vending Machines, and many more items are among the things we sell. We also provide maintenance services for the machines we sell.
-
-              Our ability to create goods that efficiently and effectively meet every need sets us apart from the competition. We prioritise product quality and prompt service to provide complete client satisfaction. Simple indigenous technology that is readily available, adaptable, affordable, and dependable powers our business. This technology was made possible by our enthusiasm for innovation and dedication to research and development.
-
-              Our business upholds the motto "honesty, quality, and services first" and takes every contract it signs very seriously.
-            </Typography>
-            <Button variant="outlined" href="#outlined-buttons" color="primary" className='mx-5'>Read More</Button>
           </Grid>
         </Grid>
       </Box>
@@ -330,7 +320,7 @@ function JaiwinHome() {
         </Grid>
 
       </Box >
-      <ColorInversionFooter/>
+      <ColorInversionFooter />
     </>
   );
 }
