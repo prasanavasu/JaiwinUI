@@ -10,8 +10,8 @@ function JaiwinAbout() {
     <>
       <JaiNavbar />
       <Grid container rowSpacing={1} columnSpacing={1} sx={{marginTop:10 }}>
-        <Grid item xs={12} md={6} lg={6} >
-        {/* <img src="https://digitalupgrade.com/images/lobbyimage_1.jpg" alt="Lobby" style={{ width: '100%', height: '100%' }} /> */}
+        <Grid item xs={12} md={5} lg={5} sx={{ m: 2 }}>
+        <img src="https://digitalupgrade.com/images/lobbyimage_1.jpg" alt="Lobby" style={{ width: '100%', height: '100%' }} />
         </Grid>
         <Grid item xs={12} md={6} lg={6}>
         <Typography variant="h3" sx={{ m: 2 }}>
