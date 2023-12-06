@@ -1,5 +1,8 @@
 import React from 'react';
 import { Box, Typography, Card, CardContent, CardHeader, Avatar, Grid, Container } from '@mui/material';
+import mission from '../mission.png'
+import vision from '../vision.png'
+import excellence from '../excellence.png'
 
 function Mission() {
   return (
@@ -18,7 +21,7 @@ function Mission() {
                 avatar={
                   <Avatar aria-label="icon">
                     <img
-                      src="https://tuning-mania.com/pub/media/wysiwyg/mission-icon.png"
+                      src={mission}
                       alt="Mission Icon"
                       width="40px"
                       height="40px"
@@ -40,7 +43,7 @@ function Mission() {
                 avatar={
                   <Avatar aria-label="icon">
                     <img
-                      src="https://tuning-mania.com/pub/media/wysiwyg/vision-icon.png"
+                      src={vision}
                       alt="Vision Icon"
                       width="40px"
                       height="40px"
@@ -63,7 +66,7 @@ function Mission() {
                 avatar={
                   <Avatar aria-label="icon">
                     <img
-                      src="https://tuning-mania.com/pub/media/wysiwyg/values-icon.png"
+                      src={excellence}
                       alt="Values Icon"
                       width="40px"
                       height="40px"

@@ -5,6 +5,7 @@ import JaiNavbar from './navbar';
 import { Box, Typography, Card, CardContent, CardMedia, Paper, Grid, Link, Container, useMediaQuery } from '@mui/material';
 import './home.css'
 import enquiry from '../enquiry.jpg'
+import welcome from '../welcome.jpg'
 import home from '../home.jpg'
 import ColorInversionFooter from './footer'
 import Mission from './mission';
@@ -160,7 +161,7 @@ function JaiwinHome() {
       <Box className="Section" sx={{ backgroundColor: '#f1abff5c' }}>
         <Grid container rowSpacing={1} columnSpacing={1}>
           <Grid item xs={12} md={5} lg={6} sx={{ mx: 2 }} className='welcome-card' display="flex" justifyContent="center" alignItems="center">
-            <img src='https://assets.nicepagecdn.com/11a8ddce/3667110/images/pexels-sevenstorm-juhaszimrus-425160.jpg' alt="About" style={{
+            <img src={welcome} alt="About" style={{
               width: "100%",
               height: "70%",
               borderRadius: "15px"

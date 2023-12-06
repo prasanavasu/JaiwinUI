@@ -3,6 +3,7 @@ import JaiNavbar from './navbar';
 import { Typography, Grid,Breadcrumbs, Link } from '@mui/material';
 import ColorInversionFooter from './footer'
 import Mission from './mission';
+import about from '../about.jpg'
 
 function JaiwinAbout() {
 
@@ -17,7 +18,7 @@ function JaiwinAbout() {
         </Breadcrumbs>
       <Grid container rowSpacing={1} columnSpacing={1} >
         <Grid item xs={12} md={5} lg={5} sx={{ m: 2 }}>
-        <img src="https://digitalupgrade.com/images/lobbyimage_1.jpg" alt="Lobby" style={{ width: '100%', height: '100%' }} />
+        <img src={about} alt="Lobby" style={{ width: '100%', height: '100%' }} />
         </Grid>
         <Grid item xs={12} md={6} lg={6}>
         <Typography variant="h3" sx={{ m: 2 }}>
