@@ -162,13 +162,13 @@ function JaiwinHome() {
           <Grid item xs={12} md={5} lg={6} sx={{ mx: 2 }} className='welcome-card' display="flex" justifyContent="center" alignItems="center">
             <img src='https://assets.nicepagecdn.com/11a8ddce/3667110/images/pexels-sevenstorm-juhaszimrus-425160.jpg' alt="About" style={{
               width: "100%",
-              height: "90%",
+              height: "70%",
               borderRadius: "15px"
             }} />          </Grid>
-          <Grid item xs={12} md={6} lg={5} sx={{ m: 2 }}>
+          <Grid item xs={12} md={6} lg={5} sx={{ my: 5,mx:2 }}>
             <Typography variant="h3" >
               Welcome to our Website</Typography>
-            <Typography sx={{ mx: 2 }}>
+            <Typography sx={{ mx: 2, fontSize:"17px" }}>
               A wide variety of hygienic toiletries were supplied and traded by Jaiwin Enterprises. Sanitary Pads, Diapers, Phenyls, Sanitary Napkin Vending Machines, and many more items are among the things we sell. We also provide maintenance services for the machines we sell.
 
               Our ability to create goods that efficiently and effectively meet every need sets us apart from the competition. We prioritise product quality and prompt service to provide complete client satisfaction. Simple indigenous technology that is readily available, adaptable, affordable, and dependable powers our business. This technology was made possible by our enthusiasm for innovation and dedication to research and development.

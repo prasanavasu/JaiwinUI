@@ -16,13 +16,11 @@ const ProductModal = ({ data, handleClose }) => {
 
     return (
 
-        <Box sx={{ bgcolor: 'background.paper', border: '2px solid #000', p: 2 }}>
+        <Box sx={{ bgcolor: 'background.paper', border: '2px solid #000' }}>
             <Grid container rowSpacing={1} columnSpacing={1} >
-                <Grid item xs={12} md={5} lg={5} sx={{ m: 2 }}>
-                    <img src={data.src} alt="Lobby" style={{ width: '100%', height: 450, objectFit: 'fit' }} />
-                </Grid>
-                <Grid item xs={12} md={6} lg={6}>
-                    <Typography variant="h4" sx={{ my: 2 }}>
+               
+                <Grid item xs={12} md={4} lg={4}>
+                    <Typography variant="h5" sx={{ my: 2 }}>
                         <Button onClick={handleClose} ><KeyboardBackspaceIcon sx={{ color: "black", fontSize: 35 }} /></Button> {data.name}
                     </Typography>
                     <TableContainer component={Paper}>
@@ -30,30 +28,66 @@ const ProductModal = ({ data, handleClose }) => {
 
                             <TableBody>
 
-                                <TableRow
-
-                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                >
-                                    <TableCell component="th" scope="row">
-
-                                        Business Type
-                                    </TableCell>
-                                    <TableCell align="right">Manufacturer, Supplier</TableCell>
+                                <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }} >
+                                    <TableCell component="th" scope="row">Business Type</TableCell>
+                                    <TableCell align="right" sx={{ fontWeight: "bold" }}>{data.business_type}</TableCell>
                                 </TableRow>
+                                <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }} >
+                                    <TableCell component="th" scope="row">Brand Name</TableCell>
+                                    <TableCell align="right" sx={{ fontWeight: "bold" }}>{data.brand_name}</TableCell>
+                                </TableRow>
+                                <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }} >
+                                    <TableCell component="th" scope="row">Price</TableCell>
+                                    <TableCell align="right" sx={{ fontWeight: "bold" }}>₹ {data.price}/{data.unit}</TableCell>
+                                </TableRow>
+                                <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }} >
+                                    <TableCell component="th" scope="row">Color</TableCell>
+                                    <TableCell align="right" sx={{ fontWeight: "bold" }}>{data.color}`</TableCell>
+                                </TableRow>
+                                <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }} >
+                                    <TableCell component="th" scope="row">Made In</TableCell>
+                                    <TableCell align="right" sx={{ fontWeight: "bold" }}>{data.country_origin}</TableCell>
+                                </TableRow>
+
 
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    <Typography sx={{ mx: 2 }}>
-                        <Typography variant="h6" sx={detailStyle}>Description:</Typography>
 
-                    </Typography>
-                    <Typography sx={{ mx: 2 }}>
+                    <Typography sx={{ mx: 2, my: 4 }}>
                         <Typography variant="h6" sx={detailStyle}>Preferred Buyer From:</Typography>
-
-                        <span style={{ fontWeight: "bold" }}> Location:</span> Anywhere in India
+                        <span style={{ fontWeight: "bold", marginLeft: 50 }}> Location:</span> Anywhere in India
                     </Typography>
+                   
+                    <Typography variant="h4">
+                        <Button variant='contained' sx={{ backgroundColor: '#d45e81' }}>Enquiry Now</Button>
+                    </Typography>
+                </Grid>
+                <Grid item xs={12} md={3} lg={3} sx={{ m: 2 }}>
+                    <img src={data.src} alt="Lobby" style={{ width: '100%', height: 500, objectFit: 'fit' }} />
 
+                </Grid>
+                <Grid item xs={12} md={4} lg={4} sx={{mx:2}}> 
+                <Typography sx={{ mx: 2, my: 4 }}>
+                        <Typography variant="h6" sx={detailStyle}>Product Details:</Typography>
+
+                        <TableContainer component={Paper}>
+                            <Table aria-label="simple table">
+
+                                <TableBody>
+
+                                    {Object.entries(data.product_details).map(([key, value]) => (
+                                        <TableRow key={key}>
+                                            <TableCell component="th" scope="row">{key}</TableCell>
+                                            <TableCell align="right" sx={{ fontWeight: "bold" }}>{value}</TableCell>
+                                        </TableRow>
+                                    ))}
+
+
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                    </Typography>
                 </Grid>
             </Grid>
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import JaiNavbar from './navbar';
 import ColorInversionFooter from './footer'
-import {Container, Grid, Breadcrumbs, Link, Box } from '@mui/material';
+import {Container, Grid, Breadcrumbs, Link, Box,Typography } from '@mui/material';
 import './products.css'
 import ProductModal from './productDetails'
 import ProductList from './productList'
@@ -11,33 +11,37 @@ function JaiwinProduct() {
 
 
   const [modalData, setModalData] = useState(null);
-  const [linkHref, setlinkHref] = useState('#');
+  const [linkHref, setlinkHref] = useState(null);
+  const [breadLink, setbreadLink] = useState(null);
 
 
   const handleOpenModal = (data) => {
-    // setModalData(data)
-    // setlinkHref('/products')
+    setModalData(data)
+    setbreadLink(data.name)
+    setlinkHref('/products')
   };
 
   const handleCloseModal = () => {
     setModalData(null)
-    setlinkHref('#')
+    setbreadLink(null)
+    setlinkHref(null)
   };
 
 
   return (
     <>
       <JaiNavbar />
-      <Box sx={{ marginTop: 10 }}>
+      <Box sx={{ marginTop: 10, mx:2 }}>
 
-        <Container>
+        <Container maxWidth="lg">
           <Breadcrumbs aria-label="breadcrumb">
             <Link underline="hover" color="inherit" href="/">
               Home
             </Link>
-            <Link underline="hover" color="inherit" href={linkHref}>
-            Products
-            </Link>
+            {linkHref ? <Link underline="hover" color="inherit" href={linkHref}>Products </Link> :<Typography color="text.primary">Products</Typography>}
+            {breadLink && <Typography color="text.primary">{breadLink}</Typography>}
+            
+           
            
           </Breadcrumbs>
 
