@@ -33,11 +33,11 @@ function JaiwinHome() {
     { "name": "White Phenyl", "src": whitephenyl}
 
   ];
-  const glimpse = [{ "logo": faUserTie, "title": "Name of CEO", "name": "Mr. Venkatraman R" },
-  { "logo": faBuilding, "title": "Year of Establishment", "name": "2019" },
+  const glimpse = [{ "logo": faUserTie, "title": "Name of Sole proprietorship", "name": "Mr. Venkatraman R" },
+  { "logo": faBuilding, "title": "Year of Establishment", "name": "2018" },
   { "logo": faBriefcase, "title": "Nature of Business", "name": "Manufacturers, Wholesaler, Trader" },
-  { "logo": faUserFriends, "title": "Number of Employees", "name": "Upto 10 People" },
-  { "logo": faShoppingCart, "title": "Market Covered", "name": "India" },
+  { "logo": faUserFriends, "title": "Number of Employees", "name": "Upto 50 People" },
+  { "logo": faShoppingCart, "title": "Market Covered", "name": "Global" },
   { "logo": faIdCard, "title": "GST No", "name": "33AIGPV4827J1ZW" },
   { "logo": faDollarSign, "title": "Annual Turnover", "name": "Rs. 0.5 to 2.5 Crore Approx" },
   { "logo": faBalanceScale, "title": "Legal Status of Firm", "name": "Individual (Sole proprietorship)" }

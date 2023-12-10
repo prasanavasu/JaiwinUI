@@ -18,7 +18,7 @@ const ProductModal = ({ data, handleClose }) => {
 
         <Box sx={{ bgcolor: 'background.paper', border: '2px solid #000' }}>
             <Grid container rowSpacing={1} columnSpacing={1} >
-               
+
                 <Grid item xs={12} md={4} lg={4}>
                     <Typography variant="h5" sx={{ my: 2 }}>
                         <Button onClick={handleClose} ><KeyboardBackspaceIcon sx={{ color: "black", fontSize: 35 }} /></Button> {data.name}
@@ -38,7 +38,14 @@ const ProductModal = ({ data, handleClose }) => {
                                 </TableRow>
                                 <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }} >
                                     <TableCell component="th" scope="row">Price</TableCell>
-                                    <TableCell align="right" sx={{ fontWeight: "bold" }}>₹ {data.price}/{data.unit}</TableCell>
+                                    <TableCell align="right" sx={{ fontWeight: "bold" }}><div>
+                                        ₹ {data.price}/{data.unit}
+                                    </div>
+                                        <div>
+                                            <span style={{ fontWeight: "lighter", color: "#7b7e81", fontSize: "smaller" }}>
+                                                {data.price_note}
+                                            </span>
+                                        </div></TableCell>
                                 </TableRow>
                                 <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }} >
                                     <TableCell component="th" scope="row">Color</TableCell>
@@ -58,17 +65,17 @@ const ProductModal = ({ data, handleClose }) => {
                         <Typography variant="h6" sx={detailStyle}>Preferred Buyer From:</Typography>
                         <span style={{ fontWeight: "bold", marginLeft: 50 }}> Location:</span> Anywhere in India
                     </Typography>
-                   
-                    <Typography variant="h4">
-                        <Button variant='contained' sx={{ backgroundColor: '#d45e81' }}>Enquiry Now</Button>
-                    </Typography>
+
+
+                    <Button variant='contained' sx={{ backgroundColor: '#d45e81', marginLeft: 16 }}>Enquiry Now</Button>
+
                 </Grid>
                 <Grid item xs={12} md={3} lg={3} sx={{ m: 2 }}>
                     <img src={data.src} alt="Lobby" style={{ width: '100%', height: 500, objectFit: 'fit' }} />
 
                 </Grid>
-                <Grid item xs={12} md={4} lg={4} sx={{mx:2}}> 
-                <Typography sx={{ mx: 2, my: 4 }}>
+                <Grid item xs={12} md={4} lg={4} sx={{ mx: 2 }}>
+                    <Typography sx={{ my: 2 }}>
                         <Typography variant="h6" sx={detailStyle}>Product Details:</Typography>
 
                         <TableContainer component={Paper}>
