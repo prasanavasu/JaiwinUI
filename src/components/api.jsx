@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const local = "http://localhost:5000/"
+// const local = "http://localhost:5000/"
 const prod = "https://backend.jaiwin.co.in/"
 
 const api = axios.create({
