@@ -18,7 +18,6 @@ import liquiddetergent from '../products/premium-liquid-detergent.jpg'
 import disposalnapkin from '../products/sanitary-napkin-disposal-machine.jpg'
 import vendingnapkin from '../products/sanitary-napkin-vending-machine.jpg'
 import toiletcleaner from '../products/toilet-cleaner.jpg'
-import whitephenyl from '../products/white-phenyl.jpg'
 
 function JaiwinHome() {
 
@@ -30,7 +29,6 @@ function JaiwinHome() {
     { "name": "Sanitary Napkin Disposal Machine", "src": disposalnapkin},
     { "name": "Sanitary Napkin Vending Machine", "src": vendingnapkin},
     { "name": "Toilet Cleaner", "src": toiletcleaner},
-    { "name": "White Phenyl", "src": whitephenyl}
 
   ];
   const glimpse = [{ "logo": faUserTie, "title": "Name of Sole proprietorship", "name": "Mr. Venkatraman R" },

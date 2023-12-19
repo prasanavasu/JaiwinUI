@@ -67,7 +67,7 @@ const ProductModal = ({ data, handleClose }) => {
                     </Typography>
 
 
-                    <Button variant='contained' sx={{ backgroundColor: '#d45e81', marginLeft: 16 }}>Enquiry Now</Button>
+                    {/*<Button variant='contained' sx={{ backgroundColor: '#d45e81', marginLeft: 16 }}>Enquiry Now</Button>*/}
 
                 </Grid>
                 <Grid item xs={12} md={3} lg={3} sx={{ m: 2 }}>
